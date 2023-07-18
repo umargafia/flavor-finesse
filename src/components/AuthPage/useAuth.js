@@ -14,6 +14,19 @@ export const useAuth = () => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
+  const [loginError, setLoginError] = useState({
+    email: '',
+    password: '',
+  });
+
+  const [signupError, setSignupError] = useState({
+    name: '',
+    email: '',
+    username: '',
+    password: '',
+    confirmPassword: '',
+  });
+
   const [loginData, setLoginData] = useState({
     email: '',
     password: '',
@@ -31,6 +44,12 @@ export const useAuth = () => {
 
   const handleLoginChange = (fieldName) => (text) => {
     setError('');
+    setLoginError((prev) => {
+      return {
+        ...prev,
+        [fieldName]: '',
+      };
+    });
     setLoginData((prev) => {
       return {
         ...prev,
@@ -41,6 +60,12 @@ export const useAuth = () => {
 
   const handleSignUpChange = (fieldName) => (text) => {
     setError('');
+    setSignupError((prev) => {
+      return {
+        ...prev,
+        [fieldName]: '',
+      };
+    });
     setSignupData((prev) => {
       return {
         ...prev,
@@ -49,26 +74,94 @@ export const useAuth = () => {
     });
   };
 
+  const loginValidation = () => {
+    if (loginData.email.trim().length === 0) {
+      setLoginError((prev) => {
+        return {
+          ...prev,
+          email: 'Email is required',
+        };
+      });
+    }
+
+    if (loginData.password.trim().length === 0) {
+      setLoginError((prev) => {
+        return {
+          ...prev,
+          password: 'Password is required',
+        };
+      });
+    }
+  };
+
+  const signupValidation = () => {
+    if (signupData.email.trim().length === 0) {
+      setSignupError((prev) => {
+        return {
+          ...prev,
+          email: 'Email is required',
+        };
+      });
+    }
+
+    if (signupData.name.trim().length === 0) {
+      setSignupError((prev) => {
+        return {
+          ...prev,
+          name: 'Name is required',
+        };
+      });
+    }
+
+    if (signupData.password.trim().length === 0) {
+      setSignupError((prev) => {
+        return {
+          ...prev,
+          password: 'Password is required',
+        };
+      });
+    }
+
+    if (signupData.username.trim().length === 0) {
+      setSignupError((prev) => {
+        return {
+          ...prev,
+          username: 'Username is required',
+        };
+      });
+    }
+
+    if (signupData.confirmPassword.trim().length === 0) {
+      setSignupError((prev) => {
+        return {
+          ...prev,
+          confirmPassword: 'Confirm Password is required',
+        };
+      });
+    }
+  };
   const handleSubmit = () => {
     if (isLogin) {
+      loginValidation();
       if (
         loginData.email.trim().length === 0 ||
         loginData.password.trim().length === 0
       ) {
-        Alert.alert('Input Error', 'Make sure all inputs are filled');
         return;
       }
       handleLogin();
     } else {
+      signupValidation();
       if (
         signupData.email.trim().length === 0 ||
         signupData.name.trim().length === 0 ||
         signupData.password.trim().length === 0 ||
-        signupData.username.trim().length === 0
+        signupData.username.trim().length === 0 ||
+        signupData.confirmPassword.trim().length === 0
       ) {
-        Alert.alert('Input Error', 'Make sure all inputs are filled');
         return;
       }
+
       handleSingUp();
     }
   };
@@ -136,6 +229,8 @@ export const useAuth = () => {
     signupData,
     loading,
     error,
+    signupError,
+    loginError,
     setlogin,
     handleSubmit,
     handleLoginChange,

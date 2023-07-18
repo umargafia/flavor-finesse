@@ -25,6 +25,8 @@ export default function Form() {
     signupData,
     loading,
     error,
+    signupError,
+    loginError,
     setlogin,
     handleLoginChange,
     handleSignUpChange,
@@ -49,6 +51,7 @@ export default function Form() {
                 text="Username or Email"
                 type="email-address"
                 name="mail"
+                error={loginError.email}
                 onChangeText={handleLoginChange('email')}
               />
               <MyInput
@@ -56,6 +59,7 @@ export default function Form() {
                 text="Password"
                 password
                 name="lock-closed"
+                error={loginError.password}
                 onChangeText={handleLoginChange('password')}
               />
             </>
@@ -64,32 +68,37 @@ export default function Form() {
               <MyInput
                 value={signupData.name}
                 text="Full Name"
+                error={signupError.name}
                 name="person-circle-outline"
                 onChangeText={handleSignUpChange('name')}
               />
               <MyInput
                 value={signupData.email}
                 text="Email"
+                error={signupError.email}
                 type="email-address"
                 name="mail"
                 onChangeText={handleSignUpChange('email')}
               />
               <MyInput
-                value={signupData.userName}
+                value={signupData.username}
                 text="User Name"
                 name="person-add"
                 onChangeText={handleSignUpChange('username')}
+                error={signupError.username}
               />
               <MyInput
                 value={signupData.password}
                 text="Password"
                 password
+                error={signupError.password}
                 name="lock-closed"
                 onChangeText={handleSignUpChange('password')}
               />
               <MyInput
                 value={signupData.confirmPassword}
                 text="Confirm Password"
+                error={signupError.confirmPassword}
                 password
                 name="lock-closed"
                 onChangeText={handleSignUpChange('confirmPassword')}

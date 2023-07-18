@@ -1,9 +1,14 @@
-import { useState } from "react";
-import { StyleSheet, TextInput, TouchableOpacity, View } from "react-native";
+import { useState } from 'react';
+import {
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 
-import { Theme } from "../../constants/Theme";
-
-import MyIcon from "./MyIcon";
+import { Theme } from '../../constants/Theme';
+import MyIcon from './MyIcon';
 
 const theme = Theme();
 export default function MyInput({
@@ -15,6 +20,7 @@ export default function MyInput({
   onChangeText,
   inputStyle,
   style,
+  error,
 }) {
   const [showPassword, setShowPassword] = useState(true);
   return (
@@ -22,7 +28,7 @@ export default function MyInput({
       <MyIcon name={name} style={styles.iconLeft} size={25} />
       <TextInput
         placeholder={text}
-        style={[styles.input, inputStyle]}
+        style={[styles.input, inputStyle, error && styles.inputError]}
         secureTextEntry={password && showPassword ? true : false}
         keyboardType={type}
         value={value}
@@ -33,29 +39,31 @@ export default function MyInput({
           style={styles.iconRight}
           onPress={() => setShowPassword((prev) => !prev)}
         >
-          <MyIcon name={showPassword ? "eye" : "eye-off"} size={30} />
+          <MyIcon name={showPassword ? 'eye' : 'eye-off'} size={30} />
         </TouchableOpacity>
       )}
+      {error !== '' && <Text style={styles.errorText}>{error}</Text>}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: "center",
-    flexDirection: "row",
+    alignItems: 'center',
+    flexDirection: 'row',
+    margin: 5,
   },
   iconLeft: {
-    position: "absolute",
+    position: 'absolute',
     left: 20,
     zIndex: 10,
   },
   iconRight: {
-    position: "absolute",
+    position: 'absolute',
     right: 20,
   },
   input: {
-    width: "100%",
+    width: '100%',
     padding: 10,
     paddingLeft: 40,
     backgroundColor: theme.palette.primary,
@@ -63,6 +71,15 @@ const styles = StyleSheet.create({
     fontSize: 20,
     borderRadius: 10,
     ...theme.shadow,
-    fontWeight: "bold",
+    fontWeight: 'bold',
+  },
+  inputError: {
+    borderColor: theme.palette.tertiary,
+    borderWidth: 2,
+  },
+  errorText: {
+    position: 'absolute',
+    left: 0,
+    bottom: -11,
   },
 });
