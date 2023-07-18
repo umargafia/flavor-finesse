@@ -1,5 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+import { getData } from '../constants/storage';
+
 const initialState = {
   isAuthenticated: false,
   token: '',
@@ -24,6 +26,17 @@ const authSlice = createSlice({
     },
   },
 });
+
+export const checkUser = async (dispatch) => {
+  try {
+    const user = await getData('user');
+    if (user) {
+      dispatch(loginUser(user));
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 export const { loginUser, logout, setError } = authSlice.actions;
 export default authSlice.reducer;

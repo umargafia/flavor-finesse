@@ -100,7 +100,7 @@ export const useAuth = () => {
     if (setAuthError(response)) {
       return;
     }
-    storeData(response);
+    storeData('user', response);
     dispatch(loginUser(response));
     setLoading(false);
     navigation.replace('buttonTabs', { screen: 'rw/home' });
@@ -125,7 +125,7 @@ export const useAuth = () => {
       return;
     }
 
-    storeData(response);
+    storeData('user', response);
     dispatch(loginUser(response));
     navigation.replace('buttonTabs', { screen: 'rw/home' });
   };

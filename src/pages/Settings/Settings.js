@@ -10,6 +10,7 @@ import { Theme } from '../../constants/Theme';
 import MyCard from '../../components/global/MyCard';
 import SettingItem from '../../components/Settings/SettingItem';
 import { logout } from '../../store/authSlice';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const theme = Theme();
 const Settings = () => {
@@ -18,8 +19,9 @@ const Settings = () => {
 
   const navigation = useNavigation();
   function handleSignOut() {
+    AsyncStorage.clear();
     dispatch(logout());
-    navigation.replace('welcomeScreen');
+    navigation.replace('authPage');
   }
   return (
     <View style={styles.container}>

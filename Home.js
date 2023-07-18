@@ -15,6 +15,8 @@ import MyIcon from './src/components/global/MyIcon';
 import { Theme } from './src/constants/Theme';
 import Favorite from './src/pages/Favorite/Favorite';
 import Settings from './src/pages/Settings/Settings';
+import { checkUser } from './src/store/authSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
 const Stack = createNativeStackNavigator();
 SplashScreen.preventAutoHideAsync();
@@ -81,7 +83,8 @@ export default function Home() {
     'DancingScript-Medium': require('./assets/font/DancingScript-Medium.ttf'),
     'Belanosima-Regular': require('./assets/font/Belanosima-Regular.ttf'),
   });
-
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.auth);
   const onLayoutRootView = useCallback(async () => {
     if (fontsLoaded) {
       await SplashScreen.hideAsync();
@@ -89,21 +92,24 @@ export default function Home() {
   }, [fontsLoaded]);
 
   useEffect(() => {
+    checkUser(dispatch);
     onLayoutRootView();
-  }, [onLayoutRootView]);
+  }, [onLayoutRootView, checkUser]);
 
   return (
     <>
       <StatusBar style="auto" />
       <NavigationContainer>
         <Stack.Navigator>
-          <Stack.Screen
-            name="welcomeScreen"
-            component={WelcomeScreen}
-            options={{
-              headerShown: false,
-            }}
-          />
+          {!user && (
+            <Stack.Screen
+              name="welcomeScreen"
+              component={WelcomeScreen}
+              options={{
+                headerShown: false,
+              }}
+            />
+          )}
           <Stack.Screen
             name={'buttonTabs'}
             component={BottomTabScreens}
