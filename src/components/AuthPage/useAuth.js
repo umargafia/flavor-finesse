@@ -91,7 +91,11 @@ export const useAuth = () => {
       password: loginData.password,
     };
 
-    const response = sendRequest('users/login', userData, 'POST');
+    const response = await sendRequest({
+      url: 'users/login',
+      data: userData,
+      method: 'POST',
+    });
 
     if (setAuthError(response)) {
       return;
@@ -110,7 +114,11 @@ export const useAuth = () => {
       passwordConfirm: signupData.confirmPassword,
     };
 
-    const response = sendRequest('users/signup', userData, 'POST');
+    const response = await sendRequest({
+      url: 'users/signup',
+      data: userData,
+      method: 'POST',
+    });
     if (setAuthError(response)) {
       return;
     }
