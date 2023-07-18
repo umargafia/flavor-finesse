@@ -1,35 +1,17 @@
 const BaseUrl = 'http://localhost:4000/api/v1/';
 
-export const CreateUser = async (userData) => {
+export const sendRequest = async ({ url, data, method }) => {
   try {
-    const response = await fetch(`${BaseUrl}users/signup`, {
-      method: 'POST',
+    const response = await fetch(`${BaseUrl}${url}`, {
+      method: method ? method : 'get',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(userData),
+      body: JSON.stringify(data),
     });
 
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    return error;
-  }
-};
-
-export const LoginUser = async (userData) => {
-  try {
-    console.log(userData);
-    const response = await fetch(`${BaseUrl}users/login`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(userData),
-    });
-
-    const data = await response.json();
-    return data;
+    const newData = await response.json();
+    return newData;
   } catch (error) {
     return error;
   }

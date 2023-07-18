@@ -4,6 +4,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { Divider } from '@rneui/base';
 import { Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
 
 import { Theme } from '../../constants/Theme';
 import MyCard from '../../components/global/MyCard';
@@ -11,6 +12,8 @@ import SettingItem from '../../components/Settings/SettingItem';
 
 const theme = Theme();
 const Settings = () => {
+  const { user } = useSelector((state) => state.auth);
+
   const navigation = useNavigation();
   function handleSignOut() {
     navigation.replace('welcomeScreen');
@@ -29,8 +32,8 @@ const Settings = () => {
             />
           </View>
 
-          <Text style={styles.name}>Umar Faruk Musa</Text>
-          <Text style={styles.email}>umargafia@gmail.com</Text>
+          <Text style={styles.name}>{user?.data.name}</Text>
+          <Text style={styles.email}>{user?.data.email}</Text>
           {/* top card */}
           <MyCard style={styles.topCard}>
             <SettingItem text="Edit Profile" icon="person-outline" />

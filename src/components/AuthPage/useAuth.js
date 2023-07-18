@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { Alert } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { CreateUser, LoginUser } from '../../store/api';
+import { CreateUser, LoginUser, sendRequest } from '../../store/api';
 import { loginUser, setError } from '../../store/authSlice';
 
 export const useAuth = () => {
@@ -91,12 +91,13 @@ export const useAuth = () => {
       password: loginData.password,
     };
 
-    const response = await LoginUser(userData);
+    const response = sendRequest('users/login', userData, 'POST');
+
     if (setAuthError(response)) {
       return;
     }
+    dispatch(loginUser(response));
     setLoading(false);
-
     navigation.replace('buttonTabs', { screen: 'rw/home' });
   };
   const handleSingUp = async () => {
@@ -109,7 +110,7 @@ export const useAuth = () => {
       passwordConfirm: signupData.confirmPassword,
     };
 
-    const response = await CreateUser(userData);
+    const response = sendRequest('users/signup', userData, 'POST');
     if (setAuthError(response)) {
       return;
     }
