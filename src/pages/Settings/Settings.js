@@ -4,18 +4,21 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { Divider } from '@rneui/base';
 import { Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { Theme } from '../../constants/Theme';
 import MyCard from '../../components/global/MyCard';
 import SettingItem from '../../components/Settings/SettingItem';
+import { logout } from '../../store/authSlice';
 
 const theme = Theme();
 const Settings = () => {
   const { user } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
 
   const navigation = useNavigation();
   function handleSignOut() {
+    dispatch(logout());
     navigation.replace('welcomeScreen');
   }
   return (

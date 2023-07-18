@@ -1,14 +1,14 @@
 import { useNavigation } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
 import { Alert } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
-import { CreateUser, LoginUser, sendRequest } from '../../store/api';
-import { loginUser, setError } from '../../store/authSlice';
+import { sendRequest } from '../../store/api';
+import { loginUser } from '../../store/authSlice';
+import { storeData } from '../../constants/storage';
 
 export const useAuth = () => {
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.auth);
   const [isLogin, setlogin] = useState(false);
   const navigation = useNavigation();
   const [error, setError] = useState('');
@@ -100,6 +100,7 @@ export const useAuth = () => {
     if (setAuthError(response)) {
       return;
     }
+    storeData(response);
     dispatch(loginUser(response));
     setLoading(false);
     navigation.replace('buttonTabs', { screen: 'rw/home' });
@@ -119,9 +120,12 @@ export const useAuth = () => {
       data: userData,
       method: 'POST',
     });
+
     if (setAuthError(response)) {
       return;
     }
+
+    storeData(response);
     dispatch(loginUser(response));
     navigation.replace('buttonTabs', { screen: 'rw/home' });
   };
