@@ -1,3 +1,6 @@
+import { useNavigation } from '@react-navigation/native';
+import { useDispatch } from 'react-redux';
+
 const BaseUrl = 'http://localhost:4000/api/v1/';
 
 export const sendRequest = async ({ url, data, method }) => {
@@ -11,8 +14,31 @@ export const sendRequest = async ({ url, data, method }) => {
     });
 
     const newData = await response.json();
+    if (useCheckUser(newData, useLogoutUser)) {
+      return;
+    }
     return newData;
   } catch (error) {
     return error;
   }
 };
+
+const useLogoutUser = () => {
+  const dispatch = useDispatch();
+  const navigation = useNavigation();
+
+  AsyncStorage.clear();
+  dispatch(logout());
+  navigation.replace('authPage');
+};
+
+function useCheckUser(response, onLogout) {
+  if (response.status === 401) {
+    if (onLogout) {
+      onLogout();
+    }
+    return true;
+  } else {
+    return false;
+  }
+}
