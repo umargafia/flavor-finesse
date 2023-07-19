@@ -9,7 +9,7 @@ import { storeData } from '../../constants/storage';
 
 export const useAuth = () => {
   const dispatch = useDispatch();
-  const [isLogin, setlogin] = useState(false);
+  const [isLogin, setlogin] = useState(true);
   const navigation = useNavigation();
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);

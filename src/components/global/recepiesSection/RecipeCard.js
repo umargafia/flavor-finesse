@@ -10,7 +10,7 @@ import IconCard from '../IconCard';
 
 const theme = Theme();
 
-const RecipeCard = ({ image, text, onPress, time }) => {
+const RecipeCard = ({ image, text, onPress, time, uri }) => {
   const [isFavorite, setFavorite] = useState(false);
 
   return (
@@ -35,7 +35,7 @@ const RecipeCard = ({ image, text, onPress, time }) => {
             onPress={() => setFavorite((prev) => !prev)}
           />
           <SharedElement id="image">
-            <Image source={image} style={styles.image} />
+            <Image source={uri ? { uri: uri } : image} style={styles.image} />
           </SharedElement>
           <Divider width={2} />
           <View style={styles.textContainer}>
