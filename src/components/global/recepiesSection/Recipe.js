@@ -1,15 +1,25 @@
 import { FlatList, StyleSheet, Text, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Theme } from '../../../constants/Theme';
 import RecipeCard from './RecipeCard';
 import { recipeTypes } from '../../../constants/RecipeConstant';
+import { searchRecipes } from '../../../store/api';
 
 const theme = Theme();
 
-const Recipe = () => {
+const Recipe = ({ data }) => {
+  const [recipes, setRecipees] = useState([]);
   const navigation = useNavigation();
+  useEffect(() => {
+    getRecipes();
+  }, [data]);
+
+  async function getRecipes() {
+    const result = await searchRecipes({ query: data, type: data });
+    setRecipees(result);
+  }
 
   const handleItemPress = (item) => {
     navigation.navigate('rw/recipe', { item });
@@ -21,15 +31,15 @@ const Recipe = () => {
       <FlatList
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollView}
-        data={recipeTypes}
+        data={recipes}
         renderItem={({ item }) => (
           <RecipeCard
-            image={item.image}
-            text={item.name}
+            uri={item?.image}
+            text={item?.title}
             onPress={() => handleItemPress(item)}
           />
         )}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item?.id}
         numColumns={theme.window.windowWidth > 600 ? 2 : 1}
       ></FlatList>
     </View>

@@ -1,29 +1,39 @@
-import { FlatList, StyleSheet, View } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from 'react';
+import { FlatList, StyleSheet, View } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 
-import FoodTypeCard from "./FoodTypeCard";
-import { FoodTypes } from "../../../constants/FoodType";
-import { Theme } from "../../../constants/Theme";
+import FoodTypeCard from './FoodTypeCard';
+import { FoodTypes } from '../../../constants/FoodType';
+import { Theme } from '../../../constants/Theme';
+import { setFoodType } from '../../../store/foodWorldSlice';
 
 const theme = Theme();
-const FoodTypeSection = () => {
-  const [selected, setSelected] = useState("all");
 
-  const handleItemPress = (itemId) => {
-    setSelected(itemId);
+const FoodTypeSection = () => {
+  const { type } = useSelector((state) => state.foodWorld);
+  const [selected, setSelected] = useState(type);
+  const dispatch = useDispatch();
+
+  const handleItemPress = (item) => {
+    setSelected(item.id);
+    dispatch(setFoodType(item.id));
   };
+
+  useEffect(() => {
+    setSelected(type);
+  }, [type]);
 
   return (
     <View style={{ flex: 1 }}>
       <FlatList
         horizontal
         showsHorizontalScrollIndicator={false}
-        renderItem={(item) => (
+        renderItem={({ item }) => (
           <FoodTypeCard
-            icon={item.item.icon}
-            title={item.item.name}
-            active={item.item.id === selected ? true : false}
-            onPress={() => handleItemPress(item.item.id)}
+            icon={item.icon}
+            title={item.name}
+            active={item.id === selected ? true : false}
+            onPress={() => handleItemPress(item)}
           />
         )}
         data={FoodTypes}
