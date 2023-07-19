@@ -1,7 +1,6 @@
-import { useNavigation } from '@react-navigation/native';
-import { useDispatch } from 'react-redux';
+import { useCheckUser, useLogoutUser } from '../constants/checkAuthUser';
 
-const BaseUrl = 'http://localhost:4000/api/v1/';
+const BaseUrl = '(http://192.168.0.133:4000/api/v1/';
 
 export const sendRequest = async ({ url, data, method }) => {
   try {
@@ -22,23 +21,3 @@ export const sendRequest = async ({ url, data, method }) => {
     return error;
   }
 };
-
-const useLogoutUser = () => {
-  const dispatch = useDispatch();
-  const navigation = useNavigation();
-
-  AsyncStorage.clear();
-  dispatch(logout());
-  navigation.replace('authPage');
-};
-
-function useCheckUser(response, onLogout) {
-  if (response.status === 401) {
-    if (onLogout) {
-      onLogout();
-    }
-    return true;
-  } else {
-    return false;
-  }
-}
