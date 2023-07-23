@@ -1,5 +1,6 @@
-import { FlatList, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { FlatList, StyleSheet, View } from 'react-native';
 import { Image } from 'react-native';
+import { useEffect, useState } from 'react';
 import { SharedElement } from 'react-native-shared-element';
 
 import { Theme } from '../../constants/Theme';
@@ -7,6 +8,7 @@ import IconCard from '../../components/global/IconCard';
 import { LinearGradient } from 'expo-linear-gradient';
 import MealPlanning from '../../components/foodWorld/mealPlanning/MealPlanning';
 import MyGrid from '../../components/global/MyGrid';
+import { getRecipe, getRecipeInstruction } from '../../store/api';
 
 const theme = Theme();
 const data = [
@@ -14,7 +16,29 @@ const data = [
     id: 1,
   },
 ];
-const RecipePage = ({ navigation }) => {
+const RecipePage = ({ navigation, route }) => {
+  const { item } = route.params;
+  const [recipe, setRecipe] = useState('');
+  const [instruction, setInstruction] = useState('');
+
+  useEffect(() => {
+    getRecipeInfo();
+  }, []);
+
+  useEffect(() => {
+    handleInstructions();
+  }, []);
+
+  const handleInstructions = async () => {
+    const data = await getRecipeInstruction(item?.id);
+    setInstruction(data[0].steps);
+  };
+
+  const getRecipeInfo = async () => {
+    const data = await getRecipe(item?.id);
+    setRecipe(data);
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.iconContainer}>
@@ -51,16 +75,13 @@ const RecipePage = ({ navigation }) => {
               sharedTransitionTag="image"
               style={styles.sharedElement}
             >
-              <Image
-                style={styles.image}
-                source={require('../../images/american.jpg')}
-              />
+              <Image style={styles.image} source={{ uri: recipe.image }} />
             </SharedElement>
             <LinearGradient
               colors={[theme.palette.primary, theme.palette.tertiary]}
               style={styles.textContainer}
             >
-              <MealPlanning />
+              <MealPlanning recipe={recipe} instruction={instruction} />
             </LinearGradient>
           </>
         )}

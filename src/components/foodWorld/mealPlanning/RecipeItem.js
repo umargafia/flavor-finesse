@@ -9,9 +9,16 @@ const RecipeItem = ({ item }) => {
   return (
     <MyCard style={styles.container}>
       <MyGrid>
-        <Image source={item.image} style={styles.image} />
+        <Image
+          source={{
+            uri: `https://spoonacular.com/cdn/ingredients_100x100/${item.image}`,
+          }}
+          style={styles.image}
+        />
         <Text style={styles.name}>{item.name}</Text>
-        <Text style={styles.amount}>{item.amount}</Text>
+        <Text style={styles.amount}>
+          {item.measures.us.amount} {item.measures.us.unitShort}
+        </Text>
       </MyGrid>
     </MyCard>
   );

@@ -7,8 +7,8 @@ const theme = Theme();
 export default function InstructionCard({ item }) {
   return (
     <MyCard style={styles.container}>
-      <Text style={styles.header}>Step {item.step}</Text>
-      <Text style={styles.procedure}>{item.procedure}</Text>
+      <Text style={styles.header}>Step {item.number}</Text>
+      <Text style={styles.procedure}>{item.step}</Text>
     </MyCard>
   );
 }

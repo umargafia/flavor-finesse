@@ -4,21 +4,23 @@ import React, { useEffect, useState } from 'react';
 
 import { Theme } from '../../../constants/Theme';
 import RecipeCard from './RecipeCard';
-import { getRandomRecipes, searchRecipes } from '../../../store/api';
+import { searchRecipes } from '../../../store/api';
 
 const theme = Theme();
 
 const Recipe = ({ data }) => {
-  const [recipes, setRecipees] = useState([]);
+  const [recipes, setRecipes] = useState([]);
   const navigation = useNavigation();
   useEffect(() => {
     getRecipes();
   }, [data]);
 
   async function getRecipes() {
-    // const result = await searchRecipes({ query: data, type: data });
-    const randomRecipes = await getRandomRecipes({ tags: 'juice' });
-    setRecipees(randomRecipes);
+    const randomRecipes = await searchRecipes({
+      query: data,
+      type: data,
+    });
+    setRecipes(randomRecipes);
   }
 
   const handleItemPress = (item) => {
@@ -36,6 +38,7 @@ const Recipe = ({ data }) => {
           <RecipeCard
             uri={item?.image}
             text={item?.title}
+            item={item}
             onPress={() => handleItemPress(item)}
           />
         )}

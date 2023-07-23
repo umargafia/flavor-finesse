@@ -2,7 +2,8 @@ import { useCheckUser, useLogoutUser } from '../constants/checkAuthUser';
 
 const BaseUrl = 'http://192.168.43.187:4000/api/v1/';
 const spoonacularBaseApi = 'https://api.spoonacular.com/recipes/';
-const apiKey = 'a4b50434521144df923382d472aadfe1';
+// const apiKey = 'a4b50434521144df923382d472aadfe1';
+const apiKey = `bec11cbe12d24b09b8994166838e6729`;
 
 export const sendRequest = async ({ url, data, method }) => {
   try {
@@ -35,10 +36,6 @@ export const searchRecipes = async (data) => {
       `${spoonacularBaseApi}complexSearch?query=${query}&type=${type}&number=${number}&apiKey=${apiKey}`
     );
 
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-
     const data = await response.json();
     const recipes = data.results;
 
@@ -67,7 +64,50 @@ export const getRandomRecipes = async (data) => {
     return recipes.recipes;
   } catch (error) {
     console.error('Error fetching data:', error);
-    // If you want to return an empty array when there's an error, you can add the following line:
-    // return [];
+  }
+};
+
+export const getRecipe = async (id) => {
+  try {
+    const response = await fetch(
+      `https://api.spoonacular.com/recipes/${id}/information?apiKey=${apiKey}&includeNutrition=false`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+
+    console.log(response);
+    const responseData = await response.json();
+    const recipe = responseData;
+
+    return recipe;
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    throw error; // Re-throw the error to be handled by the calling code
+  }
+};
+
+export const getRecipeInstruction = async (id) => {
+  try {
+    const response = await fetch(
+      `https://api.spoonacular.com/recipes/${id}/analyzedInstructions?apiKey=${apiKey}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+
+    const responseData = await response.json();
+    const recipe = responseData;
+
+    return recipe;
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    throw error; // Re-throw the error to be handled by the calling code
   }
 };
