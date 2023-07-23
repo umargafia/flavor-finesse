@@ -47,3 +47,27 @@ export const searchRecipes = async (data) => {
     console.error('Error fetching data:', error);
   }
 };
+
+export const getRandomRecipes = async (data) => {
+  const tags = data.tags;
+  const number = 2;
+  const newUrl = `${spoonacularBaseApi}random?number=${number}&tags=${tags}&apiKey=${apiKey}`;
+
+  try {
+    const response = await fetch(newUrl, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    const responseData = await response.json(); // Rename 'data' variable to 'responseData'
+    const recipes = responseData; // Rename 'data' variable to 'responseData'
+
+    return recipes.recipes;
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    // If you want to return an empty array when there's an error, you can add the following line:
+    // return [];
+  }
+};
