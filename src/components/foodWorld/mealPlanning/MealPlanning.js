@@ -1,5 +1,5 @@
 import { FlatList, StyleSheet, Text, View } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 import { Theme } from '../../../constants/Theme';
 import MyIcon from '../../global/MyIcon';
@@ -7,15 +7,10 @@ import MyGrid from '../../global/MyGrid';
 import MyCard from '../../global/MyCard';
 import RecipeItem from './RecipeItem';
 import InstructionCard from './InstructionCard';
-import { getRecipeInstruction } from '../../../store/api';
 
 const theme = Theme();
 
 const MealPlanning = ({ recipe, instruction }) => {
-  useEffect(() => {
-    console.log(instruction);
-  }, []);
-
   return (
     <View style={styles.container}>
       <View style={styles.container}>

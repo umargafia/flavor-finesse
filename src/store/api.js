@@ -1,6 +1,6 @@
 import { useCheckUser, useLogoutUser } from '../constants/checkAuthUser';
 
-const BaseUrl = 'http://192.168.43.187:4000/api/v1/';
+const BaseUrl = 'https://flavorfinesse.onrender.com/api/v1/';
 const spoonacularBaseApi = 'https://api.spoonacular.com/recipes/';
 // const apiKey = 'a4b50434521144df923382d472aadfe1';
 const apiKey = `bec11cbe12d24b09b8994166838e6729`;
