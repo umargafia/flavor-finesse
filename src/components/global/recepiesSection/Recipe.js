@@ -11,6 +11,7 @@ const theme = Theme();
 const Recipe = ({ data }) => {
   const [recipes, setRecipes] = useState([]);
   const navigation = useNavigation();
+
   useEffect(() => {
     getRecipes();
   }, [data]);

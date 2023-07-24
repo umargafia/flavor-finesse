@@ -1,17 +1,34 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Divider } from '@rneui/base';
 import { SharedElement } from 'react-native-shared-element';
+import { useSelector } from 'react-redux';
 
 import { Theme } from '../../../constants/Theme';
 import MyCard from '../MyCard';
 import IconCard from '../IconCard';
+import { AddToFavorite } from '../../../store/api';
 
 const theme = Theme();
 
-const RecipeCard = ({ image, text, onPress, time, uri }) => {
+const RecipeCard = ({ image, text, onPress, time, uri, item }) => {
   const [isFavorite, setFavorite] = useState(false);
+  const { token, favorites } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (favorites) {
+      const isItemFavorite = favorites?.some(
+        (fav) => fav === item.id.toString()
+      );
+      setFavorite(isItemFavorite);
+    }
+  }, [favorites, item.id.toString()]);
+
+  const handleFavorite = async () => {
+    setFavorite((prev) => !prev);
+    const data = await AddToFavorite({ id: item.id, token });
+  };
 
   return (
     <MyCard style={styles.card}>
@@ -25,7 +42,7 @@ const RecipeCard = ({ image, text, onPress, time, uri }) => {
             component
             style={styles.favIcon}
             color={theme.palette.tertiary}
-            onPress={() => setFavorite((prev) => !prev)}
+            onPress={handleFavorite}
           />
           <IconCard
             name="share"

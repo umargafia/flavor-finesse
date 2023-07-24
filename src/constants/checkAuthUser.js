@@ -1,5 +1,7 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
+import { logout } from '../store/authSlice';
 export const useLogoutUser = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
@@ -7,9 +9,11 @@ export const useLogoutUser = () => {
   AsyncStorage.clear();
   dispatch(logout());
   navigation.replace('authPage');
+  return;
 };
 
 export function useCheckUser(response, onLogout) {
+  console.log(response);
   if (response.status === 401) {
     if (onLogout) {
       onLogout();

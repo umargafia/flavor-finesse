@@ -8,9 +8,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import AuthPage from './src/pages/AuthPage';
 import { useCallback, useEffect } from 'react';
 import RecipePage from './src/pages/recipesWorld/RecipePage';
-import { checkUser } from './src/store/authSlice';
+import { checkUser, saveFavorites } from './src/store/authSlice';
 import RecipesPage from './src/pages/recipesPage/RecipesPage';
 import BottomTabScreens from './src/pages/BottomTabScreens';
+import WelcomeScreen from './src/pages/WelcomeScreen';
+import { getFavorites } from './src/store/api';
 
 const Stack = createNativeStackNavigator();
 SplashScreen.preventAutoHideAsync();
@@ -22,7 +24,7 @@ export default function Home() {
     'Belanosima-Regular': require('./assets/font/Belanosima-Regular.ttf'),
   });
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.auth);
+  const { user, token } = useSelector((state) => state.auth);
   const onLayoutRootView = useCallback(async () => {
     if (fontsLoaded) {
       await SplashScreen.hideAsync();
@@ -32,14 +34,20 @@ export default function Home() {
   useEffect(() => {
     checkUser(dispatch);
     onLayoutRootView();
+    checkFavorite();
   }, [onLayoutRootView, checkUser]);
+
+  const checkFavorite = async () => {
+    const data = await getFavorites(token);
+    dispatch(saveFavorites(data.data.favorites));
+  };
 
   return (
     <>
       <StatusBar style="auto" />
       <NavigationContainer>
         <Stack.Navigator>
-          {/* {!user && (
+          {!user && (
             <Stack.Screen
               name="welcomeScreen"
               component={WelcomeScreen}
@@ -47,7 +55,7 @@ export default function Home() {
                 headerShown: false,
               }}
             />
-          )} */}
+          )}
           <Stack.Screen
             name={'buttonTabs'}
             component={BottomTabScreens}

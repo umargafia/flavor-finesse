@@ -6,6 +6,7 @@ const initialState = {
   isAuthenticated: false,
   token: '',
   user: null,
+  favorites: [],
 };
 
 const authSlice = createSlice({
@@ -24,6 +25,9 @@ const authSlice = createSlice({
     setError: (state, action) => {
       state.error === action.payload;
     },
+    saveFavorites: (state, action) => {
+      state.favorites = action.payload;
+    },
   },
 });
 
@@ -38,5 +42,5 @@ export const checkUser = async (dispatch) => {
   }
 };
 
-export const { loginUser, logout, setError } = authSlice.actions;
+export const { loginUser, logout, setError, saveFavorites } = authSlice.actions;
 export default authSlice.reducer;
