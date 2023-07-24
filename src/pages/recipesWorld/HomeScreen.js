@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 
 import { Theme } from '../../constants/Theme';
 import Course from '../../components/foodWorld/courseSection/Course';
-import MealsSection from '../../components/global/mealsSection/MealsScetion';
 import FoodTypeSection from '../../components/foodWorld/foodType/FoodTypeSection';
 import CountrySection from '../../components/foodWorld/countrySection/CountrySection';
 import Header from '../../components/global/Header';
@@ -28,7 +27,7 @@ const HomeScreen = () => {
             {type === 'all' && (
               <>
                 <Course />
-                <MealsSection />
+                {/* <MealsSection /> */}
                 <CountrySection />
               </>
             )}

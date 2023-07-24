@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux';
 import { Theme } from '../../../constants/Theme';
 import MyCard from '../MyCard';
 import IconCard from '../IconCard';
-import { AddToFavorite } from '../../../store/api';
+import { AddToFavorite, DeleteFromFavorites } from '../../../store/api';
 
 const theme = Theme();
 
@@ -26,8 +26,17 @@ const RecipeCard = ({ image, text, onPress, time, uri, item }) => {
   }, [favorites, item.id.toString()]);
 
   const handleFavorite = async () => {
-    setFavorite((prev) => !prev);
-    const data = await AddToFavorite({ id: item.id, token });
+    if (!isFavorite) {
+      await AddToFavorite({ id: item.id, token });
+      setFavorite(true);
+      console.log('added to favorites');
+    }
+
+    if (isFavorite) {
+      await DeleteFromFavorites({ id: item.id, token });
+      setFavorite(false);
+      console.log('deleted from favorites');
+    }
   };
 
   return (

@@ -132,3 +132,12 @@ export const getFavorites = async (token) => {
   console.log(response.status);
   return response;
 };
+
+export const DeleteFromFavorites = async ({ id, token }) => {
+  const response = await sendRequest({
+    url: `favorites/remove`,
+    token,
+    method: `DELETE`,
+    data: { favoriteId: id },
+  });
+};

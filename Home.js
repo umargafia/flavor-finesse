@@ -39,7 +39,7 @@ export default function Home() {
 
   const checkFavorite = async () => {
     const data = await getFavorites(token);
-    dispatch(saveFavorites(data.data.favorites));
+    dispatch(saveFavorites(data?.data?.favorites));
   };
 
   return (
