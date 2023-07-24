@@ -79,7 +79,11 @@ const styles = StyleSheet.create({
   },
   errorText: {
     position: 'absolute',
-    left: 0,
+    left: 20,
+    fontWeight: 'bold',
+    color: 'red',
     bottom: -11,
+    letterSpacing: 2,
+    textTransform: 'capitalize',
   },
 });

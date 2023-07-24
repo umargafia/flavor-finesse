@@ -38,10 +38,6 @@ export default function Form() {
         contentContainerStyle={styles.container}
         // keyboardShouldPersistTaps="handled"
       >
-        <IconCard
-          name="chevron-back-outline"
-          onPress={() => navigation.goBack()}
-        />
         <MyCard style={styles.card}>
           <Text style={styles.title}>{isLogin ? 'Sign In' : 'Sign Up'}</Text>
           {isLogin ? (
@@ -108,9 +104,9 @@ export default function Form() {
           <Text style={styles.errorText}>{error}</Text>
           {loading ? (
             <MyButton
-              title={'loading'}
-              icon="log-in-outline"
-              onPress={handleSubmit}
+              title={'loading...'}
+              textStyle={{ color: theme.palette.tertiary }}
+              style={{ backgroundColor: 'lightgray' }}
             />
           ) : (
             <MyButton

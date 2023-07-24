@@ -11,7 +11,8 @@ export const sendRequest = async ({ url, data, method, token }) => {
       method: method ? method : 'get',
       headers: {
         'Content-Type': 'application/json',
-        [token ? 'Authorization' : '']: token ? `Bearer ${token}` : '',
+        // Wrap 'Authorization' in quotes to make it a string
+        [token && 'Authorization']: token && `Bearer ${token}`,
       },
       body: JSON.stringify(data),
     });
