@@ -1,5 +1,6 @@
 import { FlatList, StyleSheet, View } from 'react-native';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
 
 import { Theme } from '../../constants/Theme';
 import Course from '../../components/foodWorld/courseSection/Course';
@@ -7,12 +8,26 @@ import FoodTypeSection from '../../components/foodWorld/foodType/FoodTypeSection
 import CountrySection from '../../components/foodWorld/countrySection/CountrySection';
 import Header from '../../components/global/Header';
 import Recipe from '../../components/global/recepiesSection/Recipe';
+import { getFavorites } from '../../store/api';
+import { saveFavorites } from '../../store/authSlice';
 
 const theme = Theme();
 
 const HomeScreen = () => {
   const { type } = useSelector((state) => state.foodWorld);
+  const { token } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
   const data = [{ id: 1 }];
+
+  useEffect(() => {
+    checkFavorite();
+  }, []);
+
+  const checkFavorite = async () => {
+    const data = await getFavorites(token);
+    dispatch(saveFavorites(data?.data?.favorites));
+  };
+
   return (
     <View style={styles.container}>
       <Header text="Flavor Finesse" />

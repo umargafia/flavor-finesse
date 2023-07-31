@@ -12,7 +12,6 @@ import { checkUser, saveFavorites } from './src/store/authSlice';
 import RecipesPage from './src/pages/recipesPage/RecipesPage';
 import BottomTabScreens from './src/pages/BottomTabScreens';
 import WelcomeScreen from './src/pages/WelcomeScreen';
-import { getFavorites } from './src/store/api';
 
 const Stack = createNativeStackNavigator();
 SplashScreen.preventAutoHideAsync();
@@ -24,7 +23,7 @@ export default function Home() {
     'Belanosima-Regular': require('./assets/font/Belanosima-Regular.ttf'),
   });
   const dispatch = useDispatch();
-  const { user, token } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.auth);
   const onLayoutRootView = useCallback(async () => {
     if (fontsLoaded) {
       await SplashScreen.hideAsync();
@@ -34,13 +33,7 @@ export default function Home() {
   useEffect(() => {
     checkUser(dispatch);
     onLayoutRootView();
-    checkFavorite();
   }, [onLayoutRootView, checkUser]);
-
-  const checkFavorite = async () => {
-    const data = await getFavorites(token);
-    dispatch(saveFavorites(data?.data?.favorites));
-  };
 
   return (
     <>
