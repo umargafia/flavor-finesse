@@ -27,7 +27,7 @@ const RecipesPage = ({ route }) => {
   }
 
   function handleItemPress(recipe) {
-    console.log(recipe);
+    navigation.navigate('rw/recipe', { item: recipe });
   }
 
   return (

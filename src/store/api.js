@@ -2,8 +2,8 @@ import { useCheckUser, useLogoutUser } from '../constants/checkAuthUser';
 
 const BaseUrl = 'https://flavorfinesse.onrender.com/api/v1/';
 const spoonacularBaseApi = 'https://api.spoonacular.com/recipes/';
-// const apiKey = 'a4b50434521144df923382d472aadfe1';
-const apiKey = `bec11cbe12d24b09b8994166838e6729`;
+const apiKey = 'a4b50434521144df923382d472aadfe1';
+// const apiKey = `bec11cbe12d24b09b8994166838e6729`;
 
 export const sendRequest = async ({ url, data, method, token }) => {
   try {
@@ -47,28 +47,6 @@ export const searchRecipes = async (data) => {
     console.error('Error fetching data:', error);
   }
 };
-
-// export const getRandomRecipes = async (data) => {
-//   const tags = data.tags;
-//   const number = 2;
-//   const newUrl = `${spoonacularBaseApi}random?number=${number}&tags=${tags}&apiKey=${apiKey}`;
-
-//   try {
-//     const response = await fetch(newUrl, {
-//       method: 'GET',
-//       headers: {
-//         'Content-Type': 'application/json',
-//       },
-//     });
-
-//     const responseData = await response.json(); // Rename 'data' variable to 'responseData'
-//     const recipes = responseData; // Rename 'data' variable to 'responseData'
-
-//     return recipes.recipes;
-//   } catch (error) {
-//     console.error('Error fetching data:', error);
-//   }
-//};
 
 export const getRecipe = async (id) => {
   try {
@@ -142,3 +120,19 @@ export const DeleteFromFavorites = async ({ id, token }) => {
     data: { favoriteId: id },
   });
 };
+
+// const searchMultipleRecipes = async (recipeIds) => {
+
+//   try {
+//     const url = `https://api.spoonacular.com/recipes/complexSearch?ids=${recipeIds.join(
+//       ','
+//     )}&apiKey=${API_KEY}`;
+//     const response = await fetch(url);
+//     const data = await response.json();
+
+//     // Process the data as needed
+//     console.log(data);
+//   } catch (error) {
+//     console.error('Error fetching recipes:', error);
+//   }
+// };

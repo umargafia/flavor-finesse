@@ -19,11 +19,11 @@ const RecipeCard = ({ image, text, onPress, time, uri, item }) => {
   useEffect(() => {
     if (favorites) {
       const isItemFavorite = favorites?.some(
-        (fav) => fav === item.id.toString()
+        (fav) => fav === item?.id?.toString()
       );
       setFavorite(isItemFavorite);
     }
-  }, [favorites, item.id.toString()]);
+  }, [favorites]);
 
   const handleFavorite = async () => {
     if (!isFavorite) {
