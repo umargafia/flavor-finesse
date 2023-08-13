@@ -1,10 +1,10 @@
-import { FlatList, StyleSheet, Text, View } from "react-native";
-import React from "react";
+import { FlatList, StyleSheet, Text, View } from 'react-native';
+import React from 'react';
 
-import { Theme } from "../../../constants/Theme";
-import CountryCard from "./CountryCard";
-import { CountryList } from "../../../constants/CountryClass";
-import Title from "../../global/Title";
+import { Theme } from '../../../constants/Theme';
+import CountryCard from './CountryCard';
+import { CountryList } from '../../../constants/CountryClass';
+import Title from '../../global/Title';
 
 const theme = Theme();
 
@@ -15,8 +15,8 @@ const CountrySection = () => {
       <FlatList
         horizontal
         showsHorizontalScrollIndicator={false}
-        renderItem={(item) => (
-          <CountryCard country={item.item.country} image={item.item.image} />
+        renderItem={({ item }) => (
+          <CountryCard country={item.country} image={item.image} item={item} />
         )}
         data={CountryList}
         keyExtractor={(item) => item.id}
