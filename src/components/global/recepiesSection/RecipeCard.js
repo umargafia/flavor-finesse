@@ -29,13 +29,11 @@ const RecipeCard = ({ image, text, onPress, time, uri, item }) => {
     if (!isFavorite) {
       await AddToFavorite({ id: item.id, token });
       setFavorite(true);
-      console.log('added to favorites');
     }
 
     if (isFavorite) {
       await DeleteFromFavorites({ id: item.id, token });
       setFavorite(false);
-      console.log('deleted from favorites');
     }
   };
 

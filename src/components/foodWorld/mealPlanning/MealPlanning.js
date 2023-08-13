@@ -22,7 +22,7 @@ const MealPlanning = ({ recipe, instruction }) => {
               Ready in {recipe?.readyInMinutes} minutes
             </Text>
           </MyGrid>
-          <Text style={styles.subHeaderText}>Some dummy text</Text>
+          {/* <Text style={styles.subHeaderText}>Some dummy text</Text> */}
           <MyGrid>
             <MyIcon name="people" color={theme.palette.white} />
             <Text style={styles.subHeaderText}>{recipe?.servings} people</Text>

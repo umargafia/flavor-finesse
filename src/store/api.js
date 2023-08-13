@@ -94,8 +94,6 @@ export const getRecipeInstruction = async (id) => {
 };
 
 export const AddToFavorite = async ({ id, token }) => {
-  console.log({ id, token });
-
   const response = await sendRequest({
     url: `favorites/create`,
     token,
@@ -108,7 +106,7 @@ export const AddToFavorite = async ({ id, token }) => {
 
 export const getFavorites = async (token) => {
   const response = await sendRequest({ url: `favorites`, token });
-  console.log(response.status);
+  console.log(response);
   return response;
 };
 

@@ -13,7 +13,6 @@ export const useLogoutUser = () => {
 };
 
 export function useCheckUser(response, onLogout) {
-  console.log(response);
   if (response.status === 401) {
     if (onLogout) {
       onLogout();
