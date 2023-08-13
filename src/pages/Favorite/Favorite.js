@@ -1,11 +1,10 @@
 import { FlatList, StyleSheet, View } from 'react-native';
 import { Divider } from '@rneui/base';
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 
 import Header from '../../components/global/Header';
-import { FavoriteClassList } from '../../constants/FavoriteConstant';
 import FavoriteCard from '../../components/FavoritePage/FavoriteCard';
-import { useSelector } from 'react-redux';
 import { searchRecipesByIds } from '../../store/api';
 
 const Favorite = () => {
@@ -18,7 +17,7 @@ const Favorite = () => {
 
   const getFavorites = async () => {
     const recipes = await searchRecipesByIds({ recipeIds: favorites });
-    setFavoriteClassList(recipes);
+    setFavoriteClassList(recipes.reverse());
   };
 
   return (

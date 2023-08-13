@@ -116,10 +116,7 @@ export const DeleteFromFavorites = async ({ id, token }) => {
 };
 
 export const searchRecipesByIds = async ({ recipeIds }) => {
-  const recipeDataArray = [];
-
-  // const url = `${spoonacularBaseApi}${recipeId}/information?apiKey=${apiKey}`;
-  const url = `https://api.spoonacular.com/recipes/informationBulk?ids=${recipeIds.join(
+  const url = `${spoonacularBaseApi}informationBulk?ids=${recipeIds.join(
     ','
   )}&apiKey=${apiKey}`;
 
