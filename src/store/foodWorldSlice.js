@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   type: 'all',
+  FavoriteClassList: [],
 };
 
 const foodWorldSlice = createSlice({
@@ -11,8 +12,11 @@ const foodWorldSlice = createSlice({
     setFoodType: (state, action) => {
       state.type = action.payload;
     },
+    setFavoriteClassList: (state, action) => {
+      state.FavoriteClassList = action.payload;
+    },
   },
 });
 
-export const { setFoodType } = foodWorldSlice.actions;
+export const { setFoodType, setFavoriteClassList } = foodWorldSlice.actions;
 export default foodWorldSlice.reducer;

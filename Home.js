@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import AuthPage from './src/pages/AuthPage';
 import { useCallback, useEffect } from 'react';
 import RecipePage from './src/pages/recipesWorld/RecipePage';
-import { checkUser, saveFavorites } from './src/store/authSlice';
+import { checkUser } from './src/store/authSlice';
 import RecipesPage from './src/pages/recipesPage/RecipesPage';
 import BottomTabScreens from './src/pages/BottomTabScreens';
 import WelcomeScreen from './src/pages/WelcomeScreen';

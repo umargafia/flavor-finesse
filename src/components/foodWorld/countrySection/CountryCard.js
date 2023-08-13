@@ -9,7 +9,6 @@ const theme = Theme();
 
 const CountryCard = ({ country, image, item }) => {
   const navigation = useNavigation();
-  console.log({ item });
   const handleItemPress = () => {
     navigation.navigate('recipesPage', { item: { name: country } });
   };

@@ -9,6 +9,7 @@ import MyIcon from '../global/MyIcon';
 const theme = Theme();
 const FavoriteCard = ({ item }) => {
   const [isFavorite, setFavorite] = useState(true);
+
   function toggleFavorite() {
     setFavorite((prev) => !prev);
   }
@@ -17,11 +18,10 @@ const FavoriteCard = ({ item }) => {
     <MyCard style={styles.container}>
       <MyGrid style={styles.grid}>
         <View style={styles.imageContainer}>
-          <Image style={styles.image} source={item.image} />
+          <Image style={styles.image} source={{ uri: item.image }} />
         </View>
         <View style={styles.titleContainer}>
-          <Text style={styles.header}>{item.name}</Text>
-          <Text style={styles.time}>{item.time}</Text>
+          <Text style={styles.header}>{item.title}</Text>
         </View>
         <TouchableOpacity onPress={toggleFavorite} style={styles.icon}>
           <MyIcon

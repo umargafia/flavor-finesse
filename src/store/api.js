@@ -2,8 +2,8 @@ import { useCheckUser, useLogoutUser } from '../constants/checkAuthUser';
 
 const BaseUrl = 'https://flavorfinesse.onrender.com/api/v1/';
 const spoonacularBaseApi = 'https://api.spoonacular.com/recipes/';
-const apiKey = 'a4b50434521144df923382d472aadfe1';
-// const apiKey = `bec11cbe12d24b09b8994166838e6729`;
+// const apiKey = 'a4b50434521144df923382d472aadfe1';
+const apiKey = `bec11cbe12d24b09b8994166838e6729`;
 
 export const sendRequest = async ({ url, data, method, token }) => {
   try {
@@ -16,10 +16,6 @@ export const sendRequest = async ({ url, data, method, token }) => {
       },
       body: JSON.stringify(data),
     });
-
-    if (!response.ok) {
-      return response;
-    }
 
     const newData = await response.json();
     return newData;
@@ -119,18 +115,19 @@ export const DeleteFromFavorites = async ({ id, token }) => {
   });
 };
 
-// const searchMultipleRecipes = async (recipeIds) => {
+export const searchRecipesByIds = async ({ recipeIds }) => {
+  const recipeDataArray = [];
 
-//   try {
-//     const url = `https://api.spoonacular.com/recipes/complexSearch?ids=${recipeIds.join(
-//       ','
-//     )}&apiKey=${API_KEY}`;
-//     const response = await fetch(url);
-//     const data = await response.json();
+  // const url = `${spoonacularBaseApi}${recipeId}/information?apiKey=${apiKey}`;
+  const url = `https://api.spoonacular.com/recipes/informationBulk?ids=${recipeIds.join(
+    ','
+  )}&apiKey=${apiKey}`;
 
-//     // Process the data as needed
-//     console.log(data);
-//   } catch (error) {
-//     console.error('Error fetching recipes:', error);
-//   }
-// };
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error(`Error fetching recipe with ID `, error);
+  }
+};
