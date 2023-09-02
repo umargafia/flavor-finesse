@@ -1,40 +1,53 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
 
 import MyCard from '../global/MyCard';
 import MyGrid from '../global/MyGrid';
 import { Theme } from '../../constants/Theme';
 import MyIcon from '../global/MyIcon';
-import { DeleteFromFavorites } from '../../store/api';
+import { AddToFavorite, DeleteFromFavorites } from '../../store/api';
 
 const theme = Theme();
 const FavoriteCard = ({ item }) => {
+  const navigation = useNavigation();
   const [isFavorite, setFavorite] = useState(true);
   const { token } = useSelector((state) => state.auth);
 
   async function toggleFavorite() {
-    await DeleteFromFavorites({ id: item.id, token });
-    setFavorite((prev) => !prev);
-    return;
+    if (isFavorite) {
+      await DeleteFromFavorites({ id: item.id, token });
+      setFavorite((prev) => !prev);
+      return;
+    }
+    if (isFavorite === false) {
+      await AddToFavorite({ id: item.id, token });
+      setFavorite((prev) => !prev);
+      return;
+    }
   }
 
   return (
     <MyCard style={styles.container}>
-      <MyGrid style={styles.grid}>
-        <View style={styles.imageContainer}>
-          <Image style={styles.image} source={{ uri: item.image }} />
-        </View>
-        <View style={styles.titleContainer}>
-          <Text style={styles.header}>{item.title}</Text>
-        </View>
-        <TouchableOpacity onPress={toggleFavorite} style={styles.icon}>
-          <MyIcon
-            name={isFavorite ? 'star' : 'star-outline'}
-            color={theme.palette.tertiary}
-          />
-        </TouchableOpacity>
-      </MyGrid>
+      <TouchableOpacity
+        onPress={() => navigation.navigate('rw/recipe', { item })}
+      >
+        <MyGrid style={styles.grid}>
+          <View style={styles.imageContainer}>
+            <Image style={styles.image} source={{ uri: item.image }} />
+          </View>
+          <View style={styles.titleContainer}>
+            <Text style={styles.header}>{item.title}</Text>
+          </View>
+          <TouchableOpacity onPress={toggleFavorite} style={styles.icon}>
+            <MyIcon
+              name={isFavorite ? 'star' : 'star-outline'}
+              color={theme.palette.tertiary}
+            />
+          </TouchableOpacity>
+        </MyGrid>
+      </TouchableOpacity>
     </MyCard>
   );
 };

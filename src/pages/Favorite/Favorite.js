@@ -34,6 +34,7 @@ const Favorites = () => {
   };
 
   useEffect(() => {
+    setIsRefreshing(true);
     fetchFavorites();
   }, []);
 

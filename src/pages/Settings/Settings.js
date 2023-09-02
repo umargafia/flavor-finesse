@@ -52,8 +52,6 @@ const Settings = () => {
               text="About Flavor finesse"
               icon="information-circle-outline"
             />
-            <Divider />
-            <SettingItem text="Measurement unit" icon="grid-outline" />
           </MyCard>
           {/* feedback card */}
           <MyCard style={styles.topCard}>
