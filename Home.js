@@ -12,6 +12,7 @@ import { checkUser } from './src/store/authSlice';
 import RecipesPage from './src/pages/recipesPage/RecipesPage';
 import BottomTabScreens from './src/pages/BottomTabScreens';
 import WelcomeScreen from './src/pages/WelcomeScreen';
+import ProfilePage from './src/pages/Settings/Profile';
 
 const Stack = createNativeStackNavigator();
 SplashScreen.preventAutoHideAsync();
@@ -56,9 +57,7 @@ export default function Home() {
               headerShown: false,
             }}
           />
-
           <Stack.Screen name={'recipesPage'} component={RecipesPage} />
-
           <Stack.Screen
             name="rw/recipe"
             component={RecipePage}
@@ -67,12 +66,18 @@ export default function Home() {
               title: 'Home',
             }}
           />
-
           <Stack.Screen
             name="authPage"
             component={AuthPage}
             options={{
               headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="profilePage"
+            component={ProfilePage}
+            options={{
+              title: 'Profile',
             }}
           />
         </Stack.Navigator>

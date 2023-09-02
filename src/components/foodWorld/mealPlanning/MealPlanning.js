@@ -58,7 +58,7 @@ export default MealPlanning;
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
-    padding: 10,
+    padding: 2,
   },
   header: {
     fontSize: 30,

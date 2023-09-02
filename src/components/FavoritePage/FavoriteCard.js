@@ -1,17 +1,22 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 
 import MyCard from '../global/MyCard';
 import MyGrid from '../global/MyGrid';
 import { Theme } from '../../constants/Theme';
 import MyIcon from '../global/MyIcon';
+import { DeleteFromFavorites } from '../../store/api';
 
 const theme = Theme();
 const FavoriteCard = ({ item }) => {
   const [isFavorite, setFavorite] = useState(true);
+  const { token } = useSelector((state) => state.auth);
 
-  function toggleFavorite() {
+  async function toggleFavorite() {
+    await DeleteFromFavorites({ id: item.id, token });
     setFavorite((prev) => !prev);
+    return;
   }
 
   return (

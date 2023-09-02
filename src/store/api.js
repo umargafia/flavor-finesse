@@ -1,9 +1,10 @@
 import { useCheckUser, useLogoutUser } from '../constants/checkAuthUser';
 
 const BaseUrl = 'https://flavorfinesse.onrender.com/api/v1/';
+// const BaseUrl = 'localhost:4000/api/v1/';
 const spoonacularBaseApi = 'https://api.spoonacular.com/recipes/';
-// const apiKey = 'a4b50434521144df923382d472aadfe1';
-const apiKey = `bec11cbe12d24b09b8994166838e6729`;
+const apiKey = 'a4b50434521144df923382d472aadfe1';
+// const apiKey = `bec11cbe12d24b09b8994166838e6729`;
 
 export const sendRequest = async ({ url, data, method, token }) => {
   try {
@@ -121,10 +122,26 @@ export const searchRecipesByIds = async ({ recipeIds }) => {
   )}&apiKey=${apiKey}`;
 
   try {
-    const response = await fetch(url);
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
     const data = await response.json();
+    console.log(data);
     return data;
   } catch (error) {
     console.error(`Error fetching recipe with ID `, error);
   }
+};
+
+export const ChangePassword = async ({ token, data }) => {
+  const response = await sendRequest({
+    url: `users/updateMyPassword`,
+    token,
+    method: `PATCH`,
+    data: data,
+  });
+  return response;
 };

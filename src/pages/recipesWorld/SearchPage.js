@@ -28,6 +28,7 @@ export default SearchPage;
 const styles = StyleSheet.create({
   container: {
     marginHorizontal: 10,
+    margin: 20,
   },
   inputContainer: {
     marginTop: 30,

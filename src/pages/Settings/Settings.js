@@ -23,6 +23,7 @@ const Settings = () => {
     dispatch(logout());
     navigation.replace('authPage');
   }
+
   return (
     <View style={styles.container}>
       <ScrollView style={styles.scrollContainer}>
@@ -41,7 +42,11 @@ const Settings = () => {
           <Text style={styles.email}>{user?.data.email}</Text>
           {/* top card */}
           <MyCard style={styles.topCard}>
-            <SettingItem text="Edit Profile" icon="person-outline" />
+            <SettingItem
+              text="Edit Profile"
+              icon="person-outline"
+              onPress={() => navigation.navigate('profilePage')}
+            />
             <Divider />
             <SettingItem
               text="About Flavor finesse"
@@ -125,6 +130,7 @@ const styles = StyleSheet.create({
     fontFamily: theme.font.sansRegular,
     color: theme.palette.white,
     letterSpacing: 3,
+    marginTop: 2,
   },
   email: {
     color: theme.palette.white,
@@ -132,6 +138,7 @@ const styles = StyleSheet.create({
     letterSpacing: 2,
     fontSize: 16,
     transform: [{ translateY: -10 }],
+    marginTop: 2,
   },
   topCard: {
     marginTop: 20,

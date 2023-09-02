@@ -15,7 +15,7 @@ export default function InstructionCard({ item }) {
 
 const styles = StyleSheet.create({
   container: {
-    margin: 10,
+    marginVertical: 10,
     ...theme.shadow,
   },
   header: {

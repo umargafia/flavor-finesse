@@ -31,11 +31,13 @@ const styles = StyleSheet.create({
     margin: 10,
     padding: 0,
     ...theme.shadow,
+    backgroundColor: theme.palette.white,
   },
 
   image: {
     height: 50,
     width: 50,
+    resizeMode: 'contain',
   },
   innerContainer: {
     justifyContent: 'space-evenly',
