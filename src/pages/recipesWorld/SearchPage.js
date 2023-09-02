@@ -38,7 +38,6 @@ const SearchPage = () => {
     try {
       const data = await searchRecipesv2({ searchText });
       setSearchResults(data.results);
-      console.log(data);
     } catch (error) {
       console.error('Error fetching data:', error);
     } finally {

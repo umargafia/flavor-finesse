@@ -37,9 +37,7 @@ export const checkUser = async (dispatch) => {
     if (user) {
       dispatch(loginUser(user));
     }
-  } catch (error) {
-    console.log(error);
-  }
+  } catch (error) {}
 };
 
 export const { loginUser, logout, setError, saveFavorites } = authSlice.actions;

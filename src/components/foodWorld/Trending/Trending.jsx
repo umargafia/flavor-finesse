@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
   recipeCardContainer: {
-    width: 200,
+    // width: 200,
     backgroundColor: theme.palette.white,
     borderRadius: 10,
     marginHorizontal: 10,
@@ -75,11 +75,12 @@ const styles = StyleSheet.create({
     backgroundColor: theme.palette.tertiary,
   },
   recipeImage: {
-    height: 120,
-    width: 160,
+    height: 200, // Increased height for the image
+    width: 260, // Increased width for the image
     resizeMode: 'cover',
     borderRadius: 10,
   },
+
   recipeTitle: {
     marginTop: 5,
     fontSize: 16,

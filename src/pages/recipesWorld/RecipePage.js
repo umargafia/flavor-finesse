@@ -9,6 +9,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import MealPlanning from '../../components/foodWorld/mealPlanning/MealPlanning';
 import MyGrid from '../../components/global/MyGrid';
 import { getRecipe, getRecipeInstruction } from '../../store/api';
+import { useSelector } from 'react-redux';
 
 const theme = Theme();
 const data = [
@@ -20,9 +21,11 @@ const RecipePage = ({ navigation, route }) => {
   const { item } = route.params;
   const [recipe, setRecipe] = useState('');
   const [instruction, setInstruction] = useState('');
+  const { favorites } = useSelector((state) => state.auth);
 
   useEffect(() => {
     getRecipeInfo();
+    checkFavorite();
   }, []);
 
   useEffect(() => {
@@ -37,6 +40,10 @@ const RecipePage = ({ navigation, route }) => {
   const getRecipeInfo = async () => {
     const data = await getRecipe(item?.id);
     setRecipe(data);
+  };
+
+  const checkFavorite = () => {
+    console.log({ favorites, recipe });
   };
 
   return (

@@ -2,10 +2,12 @@ import { useCheckUser, useLogoutUser } from '../constants/checkAuthUser';
 
 const BaseUrl = 'https://flavorfinesse.onrender.com/api/v1/';
 // const BaseUrl = 'localhost:4000/api/v1/';
+
 const spoonacularBaseApi = 'https://api.spoonacular.com/recipes/';
 // const apiKey = 'a4b50434521144df923382d472aadfe1';
 // const apiKey = `bec11cbe12d24b09b8994166838e6729`;
-export const apiKey = 'a07dd624a99e47d3850afa68fa13d8fa';
+// export const apiKey = 'a07dd624a99e47d3850afa68fa13d8fa';
+export const apiKey = '5d4a7252555c47f2abc75fa0333de4bf';
 
 export const sendRequest = async ({ url, data, method, token }) => {
   try {
@@ -22,7 +24,6 @@ export const sendRequest = async ({ url, data, method, token }) => {
     const newData = await response.json();
     return newData;
   } catch (error) {
-    console.log(error);
     return error;
   }
 };
@@ -58,7 +59,6 @@ export const getRecipe = async (id) => {
       }
     );
 
-    console.log(response);
     const responseData = await response.json();
     const recipe = responseData;
 
@@ -104,7 +104,7 @@ export const AddToFavorite = async ({ id, token }) => {
 
 export const getFavorites = async (token) => {
   const response = await sendRequest({ url: `favorites`, token });
-  console.log(response);
+
   return response;
 };
 
@@ -130,7 +130,7 @@ export const searchRecipesByIds = async ({ recipeIds }) => {
       },
     });
     const data = await response.json();
-    console.log(data);
+
     return data;
   } catch (error) {
     console.error(`Error fetching recipe with ID `, error);

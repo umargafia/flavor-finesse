@@ -11,7 +11,6 @@ import { AddToFavorite, DeleteFromFavorites } from '../../store/api';
 
 const theme = Theme();
 const FavoriteCard = ({ item, notFav }) => {
-  console.log({ item });
   const navigation = useNavigation();
   const [isFavorite, setFavorite] = useState(true);
   const { token } = useSelector((state) => state.auth);
