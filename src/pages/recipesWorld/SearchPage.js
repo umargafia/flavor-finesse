@@ -10,7 +10,8 @@ import Header from '../../components/global/Header';
 import MyInput from '../../components/global/MyInput';
 import { Theme } from '../../constants/Theme';
 import FavoriteCard from '../../components/FavoritePage/FavoriteCard';
-import { apiKey } from '../../store/api';
+import { apiKey, searchRecipesv2 } from '../../store/api';
+import Trending from '../../components/foodWorld/Trending/Trending';
 
 const theme = Theme();
 
@@ -18,8 +19,6 @@ const SearchPage = () => {
   const [searchText, setSearchText] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-
-  const API_KEY = 'YOUR_SPOONACULAR_API_KEY'; // Replace with your Spoonacular API key
 
   useEffect(() => {
     if (searchText) {
@@ -37,11 +36,7 @@ const SearchPage = () => {
 
   const handleSearch = async () => {
     try {
-      const response = await fetch(
-        `https://api.spoonacular.com/recipes/complexSearch?query=${searchText}&number=10&apiKey=${apiKey}`
-      );
-
-      const data = await response.json();
+      const data = await searchRecipesv2({ searchText });
       setSearchResults(data.results);
       console.log(data);
     } catch (error) {
@@ -63,7 +58,12 @@ const SearchPage = () => {
           onChangeText={(text) => setSearchText(text)}
         />
       </View>
-      {isLoading ? (
+
+      {searchText.trim().length === 0 ? (
+        <View>
+          <Trending />
+        </View>
+      ) : isLoading ? (
         <ActivityIndicator
           style={styles.loader}
           size="large"

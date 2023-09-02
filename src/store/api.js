@@ -146,3 +146,25 @@ export const ChangePassword = async ({ token, data }) => {
   });
   return response;
 };
+
+export const searchRecipesv2 = async ({ searchText }) => {
+  try {
+    const response = await fetch(
+      `https://api.spoonacular.com/recipes/complexSearch?query=${searchText}&number=10&apiKey=${apiKey}`
+    );
+    const data = await response.json();
+
+    return data;
+  } catch (error) {}
+};
+
+export const getRandomRecipes = async () => {
+  try {
+    const response = await fetch(
+      `https://api.spoonacular.com/recipes/random?number=10&apiKey=${apiKey}`
+    );
+
+    const data = await response.json();
+    return data;
+  } catch (error) {}
+};
