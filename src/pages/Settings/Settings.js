@@ -11,6 +11,7 @@ import MyCard from '../../components/global/MyCard';
 import SettingItem from '../../components/Settings/SettingItem';
 import { logout } from '../../store/authSlice';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import openEmailWithFeedback from '../../constants/openEmailWithFeedback';
 
 const theme = Theme();
 const Settings = () => {
@@ -63,6 +64,7 @@ const Settings = () => {
             <SettingItem
               text="Got questions or feedback? Contact us!"
               icon="mail-open-outline"
+              onPress={openEmailWithFeedback}
             />
           </MyCard>
           {/* legal */}
