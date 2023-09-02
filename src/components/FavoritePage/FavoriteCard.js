@@ -10,7 +10,8 @@ import MyIcon from '../global/MyIcon';
 import { AddToFavorite, DeleteFromFavorites } from '../../store/api';
 
 const theme = Theme();
-const FavoriteCard = ({ item }) => {
+const FavoriteCard = ({ item, notFav }) => {
+  console.log({ item });
   const navigation = useNavigation();
   const [isFavorite, setFavorite] = useState(true);
   const { token } = useSelector((state) => state.auth);
@@ -40,12 +41,14 @@ const FavoriteCard = ({ item }) => {
           <View style={styles.titleContainer}>
             <Text style={styles.header}>{item.title}</Text>
           </View>
-          <TouchableOpacity onPress={toggleFavorite} style={styles.icon}>
-            <MyIcon
-              name={isFavorite ? 'star' : 'star-outline'}
-              color={theme.palette.tertiary}
-            />
-          </TouchableOpacity>
+          {notFav !== true ? (
+            <TouchableOpacity onPress={toggleFavorite} style={styles.icon}>
+              <MyIcon
+                name={isFavorite ? 'star' : 'star-outline'}
+                color={theme.palette.tertiary}
+              />
+            </TouchableOpacity>
+          ) : null}
         </MyGrid>
       </TouchableOpacity>
     </MyCard>
