@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 
 import { Theme } from '../../../constants/Theme';
 import RecipeCard from './RecipeCard';
-import { searchRecipes } from '../../../store/api';
+import { getRandomRecipes, searchRecipes } from '../../../store/api';
 
 const theme = Theme();
 
@@ -17,11 +17,8 @@ const Recipe = ({ data }) => {
   }, [data]);
 
   async function getRecipes() {
-    const randomRecipes = await searchRecipes({
-      query: data,
-      type: data,
-    });
-    setRecipes(randomRecipes);
+    const data = await getRandomRecipes();
+    setRecipes(data.recipes);
   }
 
   const handleItemPress = (item) => {

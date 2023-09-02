@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     padding: 10,
     alignItems: 'center',
     elevation: 2,
-    backgroundColor: theme.palette.primary,
+    backgroundColor: theme.palette.tertiary,
   },
   recipeImage: {
     height: 120,

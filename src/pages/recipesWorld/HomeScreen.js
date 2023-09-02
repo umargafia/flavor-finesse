@@ -10,6 +10,7 @@ import Header from '../../components/global/Header';
 import Recipe from '../../components/global/recepiesSection/Recipe';
 import { getFavorites } from '../../store/api';
 import { saveFavorites } from '../../store/authSlice';
+import Trending from '../../components/foodWorld/Trending/Trending';
 
 const theme = Theme();
 
@@ -43,6 +44,7 @@ const HomeScreen = () => {
               <>
                 <Course />
                 {/* <MealsSection /> */}
+                <Trending />
                 <CountrySection />
               </>
             )}
