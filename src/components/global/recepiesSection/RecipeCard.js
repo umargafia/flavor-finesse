@@ -56,7 +56,7 @@ const RecipeCard = ({ image, text, onPress, time, uri, item }) => {
             component
             style={styles.shareIcon}
             color={theme.palette.tertiary}
-            onPress={() => setFavorite((prev) => !prev)}
+            onPress={{}}
           />
           <SharedElement id="image">
             <Image source={uri ? { uri: uri } : image} style={styles.image} />
@@ -91,6 +91,7 @@ const styles = StyleSheet.create({
   image: {
     height: 180,
     width: '100%',
+    resizeMode: 'cover',
   },
   textContainer: {
     alignItems: 'center',

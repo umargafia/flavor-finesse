@@ -8,8 +8,15 @@ import IconCard from '../../components/global/IconCard';
 import { LinearGradient } from 'expo-linear-gradient';
 import MealPlanning from '../../components/foodWorld/mealPlanning/MealPlanning';
 import MyGrid from '../../components/global/MyGrid';
-import { getRecipe, getRecipeInstruction } from '../../store/api';
+import {
+  AddToFavorite,
+  DeleteFromFavorites,
+  getFavorites,
+  getRecipe,
+  getRecipeInstruction,
+} from '../../store/api';
 import { useSelector } from 'react-redux';
+import Loading from '../../components/global/Loading';
 
 const theme = Theme();
 const data = [
@@ -21,11 +28,41 @@ const RecipePage = ({ navigation, route }) => {
   const { item } = route.params;
   const [recipe, setRecipe] = useState('');
   const [instruction, setInstruction] = useState('');
-  const { favorites } = useSelector((state) => state.auth);
+  const [isFavorite, setFavorite] = useState(false);
+  const { token } = useSelector((state) => state.auth);
+  const [isLoading, setLoading] = useState(false);
+
+  useEffect(() => {
+    checkFavorite();
+  }, []);
+
+  const checkFavorite = async () => {
+    setLoading(true);
+    const favorites = await getFavorites(token);
+    setLoading(false);
+    if (favorites) {
+      const isItemFavorite = favorites?.some(
+        (fav) => fav === item?.id?.toString()
+      );
+      setFavorite(isItemFavorite);
+    }
+  };
+
+  const handleFavorite = async () => {
+    if (!isFavorite) {
+      await AddToFavorite({ id: item.id, token });
+      setFavorite(true);
+      console.log(isFavorite);
+    }
+
+    if (isFavorite) {
+      await DeleteFromFavorites({ id: item.id, token });
+      setFavorite(false);
+    }
+  };
 
   useEffect(() => {
     getRecipeInfo();
-    checkFavorite();
   }, []);
 
   useEffect(() => {
@@ -42,12 +79,9 @@ const RecipePage = ({ navigation, route }) => {
     setRecipe(data);
   };
 
-  const checkFavorite = () => {
-    console.log({ favorites, recipe });
-  };
-
   return (
     <View style={styles.container}>
+      {isLoading && <Loading />}
       <View style={styles.iconContainer}>
         <IconCard
           name="chevron-back-outline"
@@ -64,10 +98,11 @@ const RecipePage = ({ navigation, route }) => {
             style={styles.icon}
           />
           <IconCard
-            name="star"
+            name={isFavorite ? 'star' : 'star-outline'}
             component
             color={theme.palette.white}
             style={styles.icon}
+            onPress={handleFavorite}
           />
         </MyGrid>
       </View>

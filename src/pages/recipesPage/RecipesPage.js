@@ -40,6 +40,7 @@ const RecipesPage = ({ route }) => {
           <RecipeCard
             uri={recipe?.image}
             text={recipe?.title}
+            item={item}
             onPress={() => handleItemPress(recipe)}
           />
         )}
@@ -60,7 +61,7 @@ const styles = StyleSheet.create({
   },
 
   scrollView: {
-    alignItems: 'center',
+    // alignItems: 'center',
     padding: 1,
     flexGrow: 1,
     width: '100%',
