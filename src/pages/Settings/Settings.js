@@ -34,7 +34,7 @@ const Settings = () => {
           <View style={styles.profileImageContainer}>
             <Image
               style={styles.profileImage}
-              source={require('../../images/me.png')}
+              source={require('../../../assets/icon.png')}
             />
           </View>
 

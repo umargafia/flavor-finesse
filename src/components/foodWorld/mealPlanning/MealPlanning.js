@@ -14,7 +14,10 @@ const MealPlanning = ({ recipe, instruction }) => {
   return (
     <View style={styles.container}>
       <View style={styles.container}>
-        <Text style={styles.header}>{recipe?.title}</Text>
+        <View style={styles.headerContainer}>
+          <Text style={styles.header}>{recipe?.title}</Text>
+        </View>
+
         <MyGrid style={styles.grid}>
           <MyGrid>
             <MyIcon name="time" color={theme.palette.white} />
@@ -35,7 +38,7 @@ const MealPlanning = ({ recipe, instruction }) => {
             showsVerticalScrollIndicator={false}
             renderItem={({ item }) => <RecipeItem item={item} />}
             style={styles.flatList}
-            keyExtractor={(item) => item.id}
+            keyExtractor={(item) => item.id.toString()}
           />
         </MyCard>
         <MyCard style={styles.ingredientsContainer}>
@@ -61,10 +64,22 @@ const styles = StyleSheet.create({
     padding: 2,
   },
   header: {
-    fontSize: 30,
+    fontSize: theme.window.windowWidth > 600 ? 30 : 20,
     fontFamily: theme.font.firasansBold,
     letterSpacing: 3,
-    color: theme.palette.white,
+    textAlign: 'center',
+    color: theme.palette.primary,
+  },
+  headerContainer: {
+    backgroundColor: theme.palette.white,
+    ...theme.shadow,
+    transform: [
+      {
+        translateY: -30,
+      },
+    ],
+    borderRadius: 10,
+    padding: 5,
   },
   grid: {
     justifyContent: 'space-around',
