@@ -52,6 +52,7 @@ const Settings = () => {
             <SettingItem
               text="About Flavor finesse"
               icon="information-circle-outline"
+              onPress={() => navigation.navigate('aboutPage')}
             />
           </MyCard>
           {/* feedback card */}

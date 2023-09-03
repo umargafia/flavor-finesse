@@ -13,6 +13,7 @@ import RecipesPage from './src/pages/recipesPage/RecipesPage';
 import BottomTabScreens from './src/pages/BottomTabScreens';
 import WelcomeScreen from './src/pages/WelcomeScreen';
 import ProfilePage from './src/pages/Settings/Profile';
+import AboutScreen from './src/pages/Settings/AboutPage';
 
 const Stack = createNativeStackNavigator();
 SplashScreen.preventAutoHideAsync();
@@ -78,6 +79,13 @@ export default function Home() {
             component={ProfilePage}
             options={{
               title: 'Profile',
+            }}
+          />
+          <Stack.Screen
+            name="aboutPage"
+            component={AboutScreen}
+            options={{
+              title: 'About',
             }}
           />
         </Stack.Navigator>

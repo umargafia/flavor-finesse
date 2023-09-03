@@ -1,4 +1,4 @@
-import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
+import { Image, StyleSheet, View } from 'react-native';
 import React from 'react';
 import { Theme } from '../../constants/Theme';
 
@@ -16,10 +16,9 @@ export default function Loading({ style }) {
         alignItems: 'center',
       }}
     >
-      <ActivityIndicator
-        size="large"
-        color={theme.palette.tertiary}
-        style={style}
+      <Image
+        source={require('../../images/spinner.gif')}
+        style={[{ width: 100, height: 100 }, style]}
       />
     </View>
   );
