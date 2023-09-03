@@ -3,7 +3,7 @@ import React from 'react';
 import { Theme } from '../../constants/Theme';
 
 const theme = Theme();
-export default function Loading() {
+export default function Loading({ style }) {
   return (
     <View
       style={{
@@ -13,9 +13,14 @@ export default function Loading() {
         top: 0,
         height: theme.window.windowHeight,
         justifyContent: 'center',
+        alignItems: 'center',
       }}
     >
-      <ActivityIndicator size="large" color={theme.palette.tertiary} />
+      <ActivityIndicator
+        size="large"
+        color={theme.palette.tertiary}
+        style={style}
+      />
     </View>
   );
 }

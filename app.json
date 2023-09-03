@@ -26,11 +26,11 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
+    "scheme": "flavor-finesse",
     "extra": {
       "eas": {
-        "projectId": "ae384423-2ca9-44ee-b88c-b1f7ee801bb0"
+        "projectId": "ef4ed6bd-a4ff-4aac-8fe7-db4c1ed1947b"
       }
-    },
-    "scheme": "flavor-finesse"
+    }
   }
 }

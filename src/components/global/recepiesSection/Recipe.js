@@ -5,20 +5,24 @@ import React, { useEffect, useState } from 'react';
 import { Theme } from '../../../constants/Theme';
 import RecipeCard from './RecipeCard';
 import { getRandomRecipes, searchRecipes } from '../../../store/api';
+import Loading from '../Loading';
 
 const theme = Theme();
 
 const Recipe = ({ data }) => {
   const [recipes, setRecipes] = useState([]);
   const navigation = useNavigation();
+  const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
     getRecipes();
   }, [data]);
 
   async function getRecipes() {
+    setLoading(true);
     const data = await getRandomRecipes();
     setRecipes(data.recipes);
+    setLoading(false);
   }
 
   const handleItemPress = (item) => {
@@ -27,6 +31,17 @@ const Recipe = ({ data }) => {
 
   return (
     <View style={styles.container}>
+      {isLoading && (
+        <Loading
+          style={{
+            transform: [
+              {
+                translateY: -130,
+              },
+            ],
+          }}
+        />
+      )}
       <Text style={styles.title}>Recipes World</Text>
       <FlatList
         showsVerticalScrollIndicator={false}

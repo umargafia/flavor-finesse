@@ -38,7 +38,7 @@ const MealPlanning = ({ recipe, instruction }) => {
             showsVerticalScrollIndicator={false}
             renderItem={({ item }) => <RecipeItem item={item} />}
             style={styles.flatList}
-            keyExtractor={(item) => item.id.toString()}
+            keyExtractor={() => `${Date.now()}-${Math.random()}`}
           />
         </MyCard>
         <MyCard style={styles.ingredientsContainer}>
@@ -48,7 +48,7 @@ const MealPlanning = ({ recipe, instruction }) => {
             showsVerticalScrollIndicator={false}
             renderItem={({ item }) => <InstructionCard item={item} />}
             style={styles.flatList}
-            keyExtractor={(item) => item.number}
+            keyExtractor={() => `${Date.now()}-${Math.random()}`}
           />
         </MyCard>
       </View>

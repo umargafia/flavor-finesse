@@ -2,6 +2,7 @@ import { FlatList, StyleSheet, View } from 'react-native';
 import { Image } from 'react-native';
 import { useEffect, useState } from 'react';
 import { SharedElement } from 'react-native-shared-element';
+import { useSelector } from 'react-redux';
 
 import { Theme } from '../../constants/Theme';
 import IconCard from '../../components/global/IconCard';
@@ -15,7 +16,6 @@ import {
   getRecipe,
   getRecipeInstruction,
 } from '../../store/api';
-import { useSelector } from 'react-redux';
 import Loading from '../../components/global/Loading';
 
 const theme = Theme();
@@ -80,57 +80,59 @@ const RecipePage = ({ navigation, route }) => {
   };
 
   return (
-    <View style={styles.container}>
+    <>
       {isLoading && <Loading />}
-      <View style={styles.iconContainer}>
-        <IconCard
-          name="chevron-back-outline"
-          onPress={() => navigation.goBack()}
-          component
-          style={styles.backIcon}
-          color={theme.palette.white}
-        />
-        <MyGrid>
+      <View style={styles.container}>
+        <View style={styles.iconContainer}>
           <IconCard
-            name="share"
+            name="chevron-back-outline"
+            onPress={() => navigation.goBack()}
             component
+            style={styles.backIcon}
             color={theme.palette.white}
-            style={styles.icon}
           />
-          <IconCard
-            name={isFavorite ? 'star' : 'star-outline'}
-            component
-            color={theme.palette.white}
-            style={styles.icon}
-            onPress={handleFavorite}
-          />
-        </MyGrid>
-      </View>
+          <MyGrid>
+            <IconCard
+              name="share"
+              component
+              color={theme.palette.white}
+              style={styles.icon}
+            />
+            <IconCard
+              name={isFavorite ? 'star' : 'star-outline'}
+              component
+              color={theme.palette.white}
+              style={styles.icon}
+              onPress={handleFavorite}
+            />
+          </MyGrid>
+        </View>
 
-      <FlatList
-        showsVerticalScrollIndicator={false}
-        data={data}
-        renderItem={({ item }) => (
-          <>
-            <SharedElement
-              id="image"
-              sharedTransitionTag="image"
-              style={styles.sharedElement}
-            >
-              <Image style={styles.image} source={{ uri: recipe.image }} />
-            </SharedElement>
-            <LinearGradient
-              colors={[theme.palette.primary, theme.palette.tertiary]}
-              style={styles.textContainer}
-            >
-              <MealPlanning recipe={recipe} instruction={instruction} />
-            </LinearGradient>
-          </>
-        )}
-        keyExtractor={(item) => item.id}
-        style={styles.scrolview}
-      />
-    </View>
+        <FlatList
+          showsVerticalScrollIndicator={false}
+          data={data}
+          renderItem={({ item }) => (
+            <>
+              <SharedElement
+                id="image"
+                sharedTransitionTag="image"
+                style={styles.sharedElement}
+              >
+                <Image style={styles.image} source={{ uri: recipe.image }} />
+              </SharedElement>
+              <LinearGradient
+                colors={[theme.palette.primary, theme.palette.tertiary]}
+                style={styles.textContainer}
+              >
+                <MealPlanning recipe={recipe} instruction={instruction} />
+              </LinearGradient>
+            </>
+          )}
+          keyExtractor={() => `${Date.now()}-${Math.random()}`}
+          style={styles.scrolview}
+        />
+      </View>
+    </>
   );
 };
 
