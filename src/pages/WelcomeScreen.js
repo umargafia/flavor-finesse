@@ -1,10 +1,18 @@
-import { ImageBackground, Text, StyleSheet, View } from 'react-native';
+import React from 'react';
+import {
+  ImageBackground,
+  Text,
+  StyleSheet,
+  View,
+  TouchableOpacity,
+  Image,
+} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Divider } from '@rneui/base';
-
 import LoginButton from '../components/global/LoginButton';
 const image = require('../images/bg3.jpg');
 import { Theme } from '../constants/Theme';
+import { StatusBar } from 'expo-status-bar';
 
 const theme = Theme();
 
@@ -12,49 +20,47 @@ const WelcomeScreen = ({ navigation }) => {
   function handleGoogleAuth() {
     navigation.replace('buttonTabs', { screen: 'rw/home' });
   }
+
   return (
     <View style={styles.container}>
+      <StatusBar style="light" />
       <ImageBackground
         source={image}
         resizeMode="cover"
-        style={styles.container}
+        style={styles.backgroundImage}
       >
         <LinearGradient
-          colors={['rgba(0,0,0,0.8)', 'transparent']}
-          style={styles.image}
+          colors={['rgba(0, 0, 0, 0.8)', 'transparent']}
+          style={styles.overlay}
         >
-          <LinearGradient
-            colors={[theme.palette.primary, theme.palette.tertiary]}
-            style={styles.buttonSection}
-          >
-            <View style={{ alignItems: 'center' }}>
-              <Text style={styles.title}>
-                Find the perfect recipes everyday
+          <View style={styles.content}>
+            <Text style={styles.title}>Welcome to Flavor Finesse!</Text>
+            <Text style={styles.subtitle}>
+              Discover, cook, and share your favorite recipes with ease. Let's
+              make every meal a masterpiece together. Enjoy the experience!
+            </Text>
+            <View style={styles.buttonsContainer}>
+              <Text
+                style={{
+                  color: theme.palette.white,
+                  textAlign: 'center',
+                  fontFamily: theme.font.sansRegular,
+                }}
+              >
+                Step Inside the Kitchen!, create Your account to continue
               </Text>
-              <Text style={styles.subtitle}>
-                Over 10 thousand recipes of healthy food😋
-              </Text>
-            </View>
-            <Divider color={theme.palette.white} width={3} />
-            <View>
               <LoginButton
-                title={'continue with Email and Password'}
+                title="Continue with Your Email and Password"
                 image={require('../images/gmail.png')}
-                color={theme.palette.red}
+                color={theme.palette.primary}
                 textStyle={{
                   color: theme.palette.white,
                 }}
                 onPress={() => navigation.navigate('authPage')}
               />
-              {/* <LoginButton
-                title={'Sign in with Google'}
-                image={require('../images/google-icon.png')}
-                color={theme.palette.white}
-                onPress={handleGoogleAuth}
-              /> */}
+              <Divider color={theme.palette.white} width={3} />
             </View>
-            <Divider color={theme.palette.white} width={3} />
-          </LinearGradient>
+          </View>
         </LinearGradient>
       </ImageBackground>
     </View>
@@ -67,31 +73,40 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  image: {
+  backgroundImage: {
     flex: 1,
     justifyContent: 'flex-end',
   },
-  buttonSection: {
-    height: theme.window.windowWidth < 800 ? '60%' : '40%',
-    backgroundColor: theme.palette.primary,
-    opacity: 0.65,
-    borderTopRightRadius: 50,
-    borderTopLeftRadius: 50,
-
-    justifyContent: 'space-around',
-    alignItems: 'stretch',
+  overlay: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.3)',
+  },
+  content: {
+    alignItems: 'center',
     paddingHorizontal: '10%',
   },
   title: {
-    fontSize: theme.window.windowWidth <= 360 ? 30 : 40,
-    color: theme.palette.black,
-    fontWeight: '600',
-    textTransform: 'capitalize',
+    fontSize: 36,
+    color: theme.palette.white,
+    fontWeight: 'bold',
+    marginBottom: 20,
+    textAlign: 'center',
+    fontFamily: theme.font.firasansBold,
   },
   subtitle: {
-    fontSize: theme.window.windowWidth <= 360 ? 14 : 20,
-    marginTop: 10,
-    color: theme.palette.black,
-    alignSelf: 'center',
+    fontSize: 18,
+    color: theme.palette.white,
+    textAlign: 'center',
+    fontFamily: theme.font.DancingScriptMedium,
+  },
+  buttonsContainer: {
+    transform: [{ translateY: theme.window.windowHeight / 4 }],
+    alignItems: 'center',
+  },
+  appLogo: {
+    width: 200,
+    height: 200,
   },
 });

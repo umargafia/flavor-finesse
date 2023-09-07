@@ -35,6 +35,7 @@ const styles = StyleSheet.create({
   container: {
     padding: theme.window.windowWidth < 800 ? 10 : 20,
     width: '100%',
+
     borderRadius: 10,
     flexDirection: 'row',
     alignItems: 'center',
@@ -50,7 +51,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: theme.palette.black,
     fontWeight: 'bold',
-    fontFamily: theme.font.sansRegular,
+    fontFamily: theme.font.firasansBold,
   },
   pressed: {
     opacity: 0.7,
