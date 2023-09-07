@@ -70,9 +70,17 @@ const Settings = () => {
           </MyCard>
           {/* legal */}
           <MyCard style={styles.topCard}>
-            <SettingItem text="Terms and Conditions" icon="receipt-outline" />
+            <SettingItem
+              text="Terms and Conditions"
+              icon="receipt-outline"
+              onPress={() => navigation.navigate('termsAndCondition')}
+            />
             <Divider />
-            <SettingItem text="privacy policy" icon="document-outline" />
+            <SettingItem
+              text="privacy policy"
+              icon="document-outline"
+              onPress={() => navigation.navigate('privacyPolicy')}
+            />
           </MyCard>
           {/* account */}
           <MyCard style={styles.topCard}>

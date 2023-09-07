@@ -14,6 +14,8 @@ import BottomTabScreens from './src/pages/BottomTabScreens';
 import WelcomeScreen from './src/pages/WelcomeScreen';
 import ProfilePage from './src/pages/Settings/Profile';
 import AboutScreen from './src/pages/Settings/AboutPage';
+import PrivacyPolicy from './src/pages/Privacypolicy';
+import TermsAndCondition from './src/pages/TermsAndCondition';
 
 const Stack = createNativeStackNavigator();
 SplashScreen.preventAutoHideAsync();
@@ -86,6 +88,20 @@ export default function Home() {
             component={AboutScreen}
             options={{
               title: 'About',
+            }}
+          />
+          <Stack.Screen
+            name="privacyPolicy"
+            component={PrivacyPolicy}
+            options={{
+              title: 'Privacy Policy',
+            }}
+          />
+          <Stack.Screen
+            name="termsAndCondition"
+            component={TermsAndCondition}
+            options={{
+              title: 'Terms And Condition',
             }}
           />
         </Stack.Navigator>
