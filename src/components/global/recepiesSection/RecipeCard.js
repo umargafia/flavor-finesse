@@ -72,7 +72,7 @@ const RecipeCard = ({ image, text, onPress, time, uri, item }) => {
             </MyCard>
           ) : (
             <IconCard
-              name={isFavorite ? 'star' : 'star-outline'}
+              name={isFavorite ? 'heart' : 'heart-outline'}
               component
               style={styles.favIcon}
               color={theme.palette.tertiary}

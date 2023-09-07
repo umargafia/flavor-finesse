@@ -128,7 +128,7 @@ const RecipePage = ({ navigation, route }) => {
               </MyCard>
             ) : (
               <IconCard
-                name={isFavorite ? 'star' : 'star-outline'}
+                name={isFavorite ? 'heart' : 'heart-outline'}
                 component
                 color={theme.palette.white}
                 style={styles.icon}

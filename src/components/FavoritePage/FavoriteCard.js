@@ -43,7 +43,7 @@ const FavoriteCard = ({ item, notFav }) => {
           {notFav !== true ? (
             <TouchableOpacity onPress={toggleFavorite} style={styles.icon}>
               <MyIcon
-                name={isFavorite ? 'star' : 'star-outline'}
+                name={isFavorite ? 'heart' : 'heart-outline'}
                 color={theme.palette.tertiary}
               />
             </TouchableOpacity>

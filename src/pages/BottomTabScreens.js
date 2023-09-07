@@ -23,7 +23,7 @@ function BottomTabScreens() {
           } else if (route.name === 'rw/Search') {
             iconName = focused ? 'search' : 'search-outline';
           } else if (route.name === 'favorite') {
-            iconName = focused ? 'star' : 'star-outline';
+            iconName = focused ? 'heart' : 'heart-outline';
           } else if (route.name === 'settings') {
             iconName = focused ? 'grid' : 'grid-outline';
           }
