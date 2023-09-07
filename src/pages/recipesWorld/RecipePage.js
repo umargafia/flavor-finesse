@@ -115,12 +115,12 @@ const RecipePage = ({ navigation, route }) => {
             color={theme.palette.white}
           />
           <MyGrid>
-            <IconCard
+            {/* <IconCard
               name="share"
               component
               color={theme.palette.white}
               style={styles.icon}
-            />
+            /> */}
 
             {favLoading ? (
               <MyCard style={[styles.favIcon]}>

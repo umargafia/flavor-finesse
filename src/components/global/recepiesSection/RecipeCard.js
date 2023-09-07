@@ -1,10 +1,11 @@
 import {
-  ActivityIndicator,
-  Image,
-  StyleSheet,
+  View,
   Text,
   TouchableOpacity,
-  View,
+  Image,
+  ActivityIndicator,
+  Share,
+  StyleSheet,
 } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -15,7 +16,6 @@ import { Theme } from '../../../constants/Theme';
 import MyCard from '../MyCard';
 import IconCard from '../IconCard';
 import { AddToFavorite, DeleteFromFavorites } from '../../../store/api';
-import Loading from '../Loading';
 
 const theme = Theme();
 
@@ -47,6 +47,18 @@ const RecipeCard = ({ image, text, onPress, time, uri, item }) => {
     setLoading(false);
   };
 
+  const shareRecipe = async () => {
+    try {
+      const recipeText = `Check out this delicious recipe: ${text}`;
+      await Share.share({
+        message: recipeText,
+      });
+    } catch (error) {
+      // Handle error here
+      console.error('Error sharing recipe:', error);
+    }
+  };
+
   return (
     <MyCard style={styles.card}>
       <TouchableOpacity onPress={onPress} style={styles.container}>
@@ -67,13 +79,13 @@ const RecipeCard = ({ image, text, onPress, time, uri, item }) => {
               onPress={handleFavorite}
             />
           )}
-          <IconCard
+          {/* <IconCard
             name="share"
             component
             style={styles.shareIcon}
             color={theme.palette.tertiary}
-            onPress={{}}
-          />
+            onPress={shareRecipe}
+          /> */}
 
           <Image source={uri ? { uri: uri } : image} style={styles.image} />
 
