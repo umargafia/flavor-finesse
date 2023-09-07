@@ -81,13 +81,11 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     overflow: 'hidden',
     margin: 10,
-    minHeight: 239,
-    width: theme.window.windowWidth < 800 ? '90%' : 350,
+    height: 280,
+    width: 300,
     alignSelf: 'center',
   },
-  container: {
-    minHeight: 239,
-  },
+  container: {},
   image: {
     height: 180,
     width: '100%',
@@ -96,6 +94,7 @@ const styles = StyleSheet.create({
   textContainer: {
     alignItems: 'center',
     padding: 15,
+    height: '100%',
   },
   text: {
     fontSize: 20,

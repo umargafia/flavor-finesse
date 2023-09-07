@@ -12,6 +12,8 @@ import { useNavigation } from '@react-navigation/native';
 import { apiKey, getRandomRecipes, searchRecipesv2 } from '../../../store/api';
 import { Image } from 'react-native';
 import { Theme } from '../../../constants/Theme';
+import Recipe from '../../global/recepiesSection/Recipe';
+import RecipeCard from '../../global/recepiesSection/RecipeCard';
 
 const theme = Theme();
 
@@ -54,7 +56,14 @@ const Trending = ({ horizontal }) => {
         showsHorizontalScrollIndicator={false}
         data={recipes}
         keyExtractor={(item) => item.id.toString()}
-        renderItem={renderRecipeCard}
+        renderItem={({ item }) => (
+          <RecipeCard
+            uri={item?.image}
+            text={item?.title}
+            item={item}
+            // onPress={() => handleItemPress(item)}
+          />
+        )}
       />
     </View>
   );
