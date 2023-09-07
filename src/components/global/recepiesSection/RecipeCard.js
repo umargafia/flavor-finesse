@@ -1,4 +1,11 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {
+  ActivityIndicator,
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Divider } from '@rneui/base';
@@ -9,12 +16,14 @@ import { Theme } from '../../../constants/Theme';
 import MyCard from '../MyCard';
 import IconCard from '../IconCard';
 import { AddToFavorite, DeleteFromFavorites } from '../../../store/api';
+import Loading from '../Loading';
 
 const theme = Theme();
 
 const RecipeCard = ({ image, text, onPress, time, uri, item }) => {
   const [isFavorite, setFavorite] = useState(false);
   const { token, favorites } = useSelector((state) => state.auth);
+  const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
     if (favorites) {
@@ -26,6 +35,7 @@ const RecipeCard = ({ image, text, onPress, time, uri, item }) => {
   }, [favorites]);
 
   const handleFavorite = async () => {
+    setLoading(true);
     if (!isFavorite) {
       await AddToFavorite({ id: item.id, token });
       setFavorite(true);
@@ -35,6 +45,7 @@ const RecipeCard = ({ image, text, onPress, time, uri, item }) => {
       await DeleteFromFavorites({ id: item.id, token });
       setFavorite(false);
     }
+    setLoading(false);
   };
 
   return (
@@ -44,13 +55,19 @@ const RecipeCard = ({ image, text, onPress, time, uri, item }) => {
           style={styles.container}
           colors={[theme.palette.primary, theme.palette.tertiary]}
         >
-          <IconCard
-            name={isFavorite ? 'star' : 'star-outline'}
-            component
-            style={styles.favIcon}
-            color={theme.palette.tertiary}
-            onPress={handleFavorite}
-          />
+          {isLoading ? (
+            <MyCard style={[styles.favIcon, { height: 50, width: 50 }]}>
+              <ActivityIndicator size="large" color={theme.palette.tertiary} />
+            </MyCard>
+          ) : (
+            <IconCard
+              name={isFavorite ? 'star' : 'star-outline'}
+              component
+              style={styles.favIcon}
+              color={theme.palette.tertiary}
+              onPress={handleFavorite}
+            />
+          )}
           <IconCard
             name="share"
             component
@@ -58,9 +75,9 @@ const RecipeCard = ({ image, text, onPress, time, uri, item }) => {
             color={theme.palette.tertiary}
             onPress={{}}
           />
-          <SharedElement id="image">
-            <Image source={uri ? { uri: uri } : image} style={styles.image} />
-          </SharedElement>
+
+          <Image source={uri ? { uri: uri } : image} style={styles.image} />
+
           <Divider width={2} />
           <View style={styles.textContainer}>
             <Text style={styles.text}>{text}</Text>

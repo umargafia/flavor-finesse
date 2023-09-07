@@ -61,7 +61,7 @@ const Trending = ({ horizontal }) => {
             uri={item?.image}
             text={item?.title}
             item={item}
-            // onPress={() => handleItemPress(item)}
+            onPress={() => handleItemPress(item)}
           />
         )}
       />

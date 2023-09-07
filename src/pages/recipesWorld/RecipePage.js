@@ -1,4 +1,4 @@
-import { FlatList, StyleSheet, View } from 'react-native';
+import { FlatList, StyleSheet, View, ActivityIndicator } from 'react-native';
 import { Image } from 'react-native';
 import { useEffect, useState } from 'react';
 import { SharedElement } from 'react-native-shared-element';
@@ -17,6 +17,7 @@ import {
   getRecipeInstruction,
 } from '../../store/api';
 import Loading from '../../components/global/Loading';
+import MyCard from '../../components/global/MyCard';
 
 const theme = Theme();
 const data = [
@@ -29,60 +30,82 @@ const RecipePage = ({ navigation, route }) => {
   const [recipe, setRecipe] = useState('');
   const [instruction, setInstruction] = useState('');
   const [isFavorite, setFavorite] = useState(false);
-  const { token } = useSelector((state) => state.auth);
   const [isLoading, setLoading] = useState(false);
+  const [favLoading, setFavLoading] = useState(false);
+
+  const { token } = useSelector((state) => state.auth); // Make sure Redux store is set up
 
   useEffect(() => {
     checkFavorite();
-  }, []);
+  }, [token, item]);
 
   const checkFavorite = async () => {
-    setLoading(true);
-    const favorites = await getFavorites(token);
-    setLoading(false);
-    if (favorites) {
-      const isItemFavorite = favorites?.some(
+    setFavLoading(true);
+    try {
+      const favorites = await getFavorites(token);
+
+      const isItemFavorite = favorites.data.favorites?.some(
         (fav) => fav === item?.id?.toString()
       );
+
       setFavorite(isItemFavorite);
+    } catch (error) {
+      console.log(error);
     }
+    setFavLoading(false);
   };
+
+  useEffect(() => {
+    const getRecipeInfo = async () => {
+      setLoading(true);
+      try {
+        const data = await getRecipe(item?.id);
+        setRecipe(data);
+        setLoading(false);
+      } catch (error) {
+        // Handle error here
+        setLoading(false);
+      }
+    };
+
+    getRecipeInfo();
+  }, [item]);
+
+  useEffect(() => {
+    const handleInstructions = async () => {
+      try {
+        const data = await getRecipeInstruction(item?.id);
+        setInstruction(data[0].steps);
+      } catch (error) {
+        // Handle error here
+      }
+    };
+
+    handleInstructions();
+  }, [item]);
 
   const handleFavorite = async () => {
-    if (!isFavorite) {
-      await AddToFavorite({ id: item.id, token });
-      setFavorite(true);
-      console.log(isFavorite);
+    setFavLoading(true);
+
+    try {
+      if (!isFavorite) {
+        await AddToFavorite({ id: item.id, token });
+        setFavorite(true);
+      } else {
+        await DeleteFromFavorites({ id: item.id, token });
+        setFavorite(false);
+      }
+    } catch (error) {
+      // Handle error here
     }
 
-    if (isFavorite) {
-      await DeleteFromFavorites({ id: item.id, token });
-      setFavorite(false);
-    }
-  };
-
-  useEffect(() => {
-    getRecipeInfo();
-  }, []);
-
-  useEffect(() => {
-    handleInstructions();
-  }, []);
-
-  const handleInstructions = async () => {
-    const data = await getRecipeInstruction(item?.id);
-    setInstruction(data[0].steps);
-  };
-
-  const getRecipeInfo = async () => {
-    const data = await getRecipe(item?.id);
-    setRecipe(data);
+    setFavLoading(false);
   };
 
   return (
     <>
-      {isLoading && <Loading />}
       <View style={styles.container}>
+        {isLoading && <Loading />}
         <View style={styles.iconContainer}>
           <IconCard
             name="chevron-back-outline"
@@ -98,13 +121,20 @@ const RecipePage = ({ navigation, route }) => {
               color={theme.palette.white}
               style={styles.icon}
             />
-            <IconCard
-              name={isFavorite ? 'star' : 'star-outline'}
-              component
-              color={theme.palette.white}
-              style={styles.icon}
-              onPress={handleFavorite}
-            />
+
+            {favLoading ? (
+              <MyCard style={[styles.favIcon]}>
+                <ActivityIndicator size="large" color={theme.palette.white} />
+              </MyCard>
+            ) : (
+              <IconCard
+                name={isFavorite ? 'star' : 'star-outline'}
+                component
+                color={theme.palette.white}
+                style={styles.icon}
+                onPress={handleFavorite}
+              />
+            )}
           </MyGrid>
         </View>
 
@@ -189,5 +219,10 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 50,
     borderTopLeftRadius: 50,
     padding: 10,
+  },
+  favIcon: {
+    height: 50,
+    width: 50,
+    backgroundColor: theme.palette.primary,
   },
 });
