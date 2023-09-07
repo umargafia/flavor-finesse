@@ -90,11 +90,11 @@ const Settings = () => {
               onPress={handleSignOut}
             />
             <Divider />
-            <SettingItem
+            {/* <SettingItem
               text="Delete Account"
               color={theme.palette.tertiary}
               icon="trash-outline"
-            />
+            /> */}
           </MyCard>
         </LinearGradient>
       </ScrollView>
