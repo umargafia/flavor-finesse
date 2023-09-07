@@ -18,7 +18,7 @@ export default function Loading({ style }) {
     >
       <Image
         source={require('../../images/spinner.gif')}
-        style={[{ width: 100, height: 100 }, style]}
+        style={[{ width: 50, height: 50 }, style]}
       />
     </View>
   );

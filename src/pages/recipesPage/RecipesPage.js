@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import { searchRecipes } from '../../store/api';
 import RecipeCard from '../../components/global/recepiesSection/RecipeCard';
 import { Theme } from '../../constants/Theme';
+import Loading from '../../components/global/Loading';
 
 const theme = Theme();
 
@@ -13,6 +14,7 @@ const RecipesPage = ({ route }) => {
   const navigation = useNavigation();
   const { item } = route.params;
   const [recipes, setRecipees] = useState([]);
+  const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
     navigation.setOptions({
@@ -22,8 +24,10 @@ const RecipesPage = ({ route }) => {
   }, []);
 
   async function getRecipes() {
+    setLoading(true);
     const result = await searchRecipes({ query: item.name, type: item.name });
     setRecipees(result);
+    setLoading(false);
   }
 
   function handleItemPress(recipe) {
@@ -32,21 +36,25 @@ const RecipesPage = ({ route }) => {
 
   return (
     <View style={styles.container}>
-      <FlatList
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.scrollView}
-        data={recipes}
-        renderItem={({ item: recipe }) => (
-          <RecipeCard
-            uri={recipe?.image}
-            text={recipe?.title}
-            item={item}
-            onPress={() => handleItemPress(recipe)}
-          />
-        )}
-        keyExtractor={(recipe) => recipe?.id}
-        numColumns={theme.window.windowWidth > 600 ? 2 : 1}
-      />
+      {isLoading ? (
+        <Loading style={styles.loader} />
+      ) : (
+        <FlatList
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={styles.scrollView}
+          data={recipes}
+          renderItem={({ item: recipe }) => (
+            <RecipeCard
+              uri={recipe?.image}
+              text={recipe?.title}
+              item={item}
+              onPress={() => handleItemPress(recipe)}
+            />
+          )}
+          keyExtractor={(recipe) => recipe?.id}
+          numColumns={theme.window.windowWidth > 600 ? 2 : 1}
+        />
+      )}
     </View>
   );
 };
@@ -61,9 +69,15 @@ const styles = StyleSheet.create({
   },
 
   scrollView: {
-    // alignItems: 'center',
     padding: 1,
     flexGrow: 1,
     width: '100%',
+  },
+  loader: {
+    transform: [
+      {
+        translateY: -70,
+      },
+    ],
   },
 });

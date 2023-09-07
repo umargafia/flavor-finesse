@@ -9,7 +9,6 @@ import {
 import React, { useEffect, useState } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Divider } from '@rneui/base';
-import { SharedElement } from 'react-native-shared-element';
 import { useSelector } from 'react-redux';
 
 import { Theme } from '../../../constants/Theme';
