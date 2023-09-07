@@ -121,7 +121,7 @@ export default function Form() {
               <Text style={styles.link}>Forgot password?</Text>
             </TouchableOpacity>
           )}
-          <TouchableOpacity
+          {/* <TouchableOpacity
             style={styles.linkBtn}
             onPress={() => setlogin((prev) => !prev)}
           >
@@ -130,7 +130,7 @@ export default function Form() {
                 ? "Don't have an account? Sign Up"
                 : 'Already have an account? Sign In'}
             </Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </MyCard>
       </ScrollView>
     </View>
