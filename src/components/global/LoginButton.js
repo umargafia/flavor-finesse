@@ -2,6 +2,7 @@ import { Image, Pressable, StyleSheet, Text } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
 import { Theme } from '../../constants/Theme';
+import MyIcon from '../../components/global/MyIcon';
 
 const theme = Theme();
 
@@ -24,7 +25,7 @@ export default function LoginButton({
       ]}
       onPress={onPress}
     >
-      {icon && <Ionicons name="icon" size={50} />}
+      {icon && <MyIcon name={icon} color="white" />}
       {image && <Image source={image} style={styles.image} />}
       <Text style={[styles.text, textStyle]}>{title}</Text>
     </Pressable>
@@ -35,12 +36,12 @@ const styles = StyleSheet.create({
   container: {
     padding: theme.window.windowWidth < 800 ? 10 : 20,
     width: '100%',
-
-    borderRadius: 10,
+    borderRadius: 5,
     flexDirection: 'row',
     alignItems: 'center',
     margin: 10,
     opacity: 0.99,
+
     ...theme.shadow,
   },
 

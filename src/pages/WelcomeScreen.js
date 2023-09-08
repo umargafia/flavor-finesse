@@ -13,6 +13,7 @@ import LoginButton from '../components/global/LoginButton';
 const image = require('../images/bg3.jpg');
 import { Theme } from '../constants/Theme';
 import { StatusBar } from 'expo-status-bar';
+import MyButton from '../components/global/MyButton';
 
 const theme = Theme();
 
@@ -50,7 +51,7 @@ const WelcomeScreen = ({ navigation }) => {
                 Step Inside the Kitchen!, create Your account to continue
               </Text>
               <LoginButton
-                title="Continue with Your Email and Password"
+                title="Continue with Email and Password"
                 image={require('../images/gmail.png')}
                 color={theme.palette.primary}
                 textStyle={{
@@ -58,7 +59,13 @@ const WelcomeScreen = ({ navigation }) => {
                 }}
                 onPress={() => navigation.navigate('authPage')}
               />
-              <Divider color={theme.palette.white} width={3} />
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.replace('buttonTabs', { screen: 'rw/home' })
+                }
+              >
+                <Text style={styles.textButton}>Continue without Logging</Text>
+              </TouchableOpacity>
             </View>
           </View>
         </LinearGradient>
@@ -103,10 +110,24 @@ const styles = StyleSheet.create({
   },
   buttonsContainer: {
     transform: [{ translateY: theme.window.windowHeight / 4 }],
-    alignItems: 'center',
+    alignItems: 'stretch',
+    justifyContent: 'center',
+    width: '100%',
   },
   appLogo: {
     width: 200,
     height: 200,
+  },
+  loginButton: {
+    alignSelf: 'stretch',
+  },
+  textButton: {
+    color: theme.palette.white,
+    textTransform: 'capitalize',
+    textAlign: 'center',
+    borderBottomWidth: 1,
+    borderBottomColor: theme.palette.white,
+    alignSelf: 'center',
+    fontFamily: theme.font.sansRegular,
   },
 });

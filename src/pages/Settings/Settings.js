@@ -12,10 +12,11 @@ import SettingItem from '../../components/Settings/SettingItem';
 import { logout } from '../../store/authSlice';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import openEmailWithFeedback from '../../constants/openEmailWithFeedback';
+import LoginRedirectButton from '../../components/global/LoginRedirecButton';
 
 const theme = Theme();
 const Settings = () => {
-  const { user } = useSelector((state) => state.auth);
+  const { user, isAuthenticated } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   const navigation = useNavigation();
@@ -38,16 +39,24 @@ const Settings = () => {
               source={require('../../../assets/icon.png')}
             />
           </View>
+          {!isAuthenticated ? (
+            <LoginRedirectButton color={theme.palette.white} />
+          ) : (
+            <>
+              <Text style={styles.name}>{user?.data.name}</Text>
+              <Text style={styles.email}>{user?.data.email}</Text>
+            </>
+          )}
 
-          <Text style={styles.name}>{user?.data.name}</Text>
-          <Text style={styles.email}>{user?.data.email}</Text>
           {/* top card */}
           <MyCard style={styles.topCard}>
-            <SettingItem
-              text="Edit Profile"
-              icon="person-outline"
-              onPress={() => navigation.navigate('profilePage')}
-            />
+            {isAuthenticated && (
+              <SettingItem
+                text="Edit Profile"
+                icon="person-outline"
+                onPress={() => navigation.navigate('profilePage')}
+              />
+            )}
             <Divider />
             <SettingItem
               text="About Flavor finesse"
@@ -83,19 +92,22 @@ const Settings = () => {
             />
           </MyCard>
           {/* account */}
-          <MyCard style={styles.topCard}>
-            <SettingItem
-              text="Sign Out"
-              icon="log-out-outline"
-              onPress={handleSignOut}
-            />
-            <Divider />
-            {/* <SettingItem
+          {isAuthenticated && (
+            <MyCard style={styles.topCard}>
+              <SettingItem
+                text="Sign Out"
+                icon="log-out-outline"
+                onPress={handleSignOut}
+              />
+
+              <Divider />
+              {/* <SettingItem
               text="Delete Account"
               color={theme.palette.tertiary}
               icon="trash-outline"
             /> */}
-          </MyCard>
+            </MyCard>
+          )}
         </LinearGradient>
       </ScrollView>
     </View>

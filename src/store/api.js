@@ -2,8 +2,8 @@ const BaseUrl = 'https://flavorfinesse.onrender.com/api/v1/';
 // const BaseUrl = 'localhost:4000/api/v1/';
 
 const spoonacularBaseApi = 'https://api.spoonacular.com/recipes/';
-let apiKey;
-//'a4b50434521144df923382d472aadfe1'
+let apiKey = 'a4b50434521144df923382d472aadfe1';
+
 export const sendRequest = async ({ url, data, method, token }) => {
   await getApiKey();
 

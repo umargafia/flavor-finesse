@@ -1,4 +1,11 @@
-import { FlatList, RefreshControl, StyleSheet, Text, View } from 'react-native';
+import {
+  FlatList,
+  RefreshControl,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import { Divider } from '@rneui/base';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
@@ -6,14 +13,21 @@ import { useSelector } from 'react-redux';
 import Header from '../../components/global/Header';
 import FavoriteCard from '../../components/FavoritePage/FavoriteCard';
 import { getFavorites, searchRecipesByIds } from '../../store/api';
+import { Theme } from '../../constants/Theme';
+import LoginRedirectButton from '../../components/global/LoginRedirecButton';
 
+const theme = Theme();
 const Favorites = () => {
-  const { token } = useSelector((state) => state.auth);
+  const { token, isAuthenticated } = useSelector((state) => state.auth);
   const [favoriteRecipes, setFavoriteRecipes] = useState([]);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [error, setError] = useState(null);
 
   const fetchFavorites = async () => {
+    if (!isAuthenticated) {
+      return;
+    }
+
     const favorites = await getFavorites(token);
     try {
       const recipes = await searchRecipesByIds({
@@ -38,6 +52,18 @@ const Favorites = () => {
     fetchFavorites();
   }, []);
 
+  if (!isAuthenticated) {
+    return (
+      <View style={styles.container}>
+        <Header text="Favorites" />
+        <Divider />
+        <View style={styles.loginContainer}>
+          <Text style={styles.loginText}>No Favorites😢</Text>
+          <LoginRedirectButton />
+        </View>
+      </View>
+    );
+  }
   return (
     <View style={styles.container}>
       <Header text="Favorites" />
@@ -68,6 +94,18 @@ export default Favorites;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    margin: 20,
+  },
+  loginContainer: {
+    flex: 1,
     margin: 2,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  loginText: {
+    fontSize: 30,
+    color: theme.palette.tertiary,
+    borderBottomColor: theme.palette.tertiary,
+    fontFamily: theme.font.sansRegular,
   },
 });
