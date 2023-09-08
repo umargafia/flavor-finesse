@@ -18,6 +18,7 @@ import {
 } from '../../store/api';
 import Loading from '../../components/global/Loading';
 import MyCard from '../../components/global/MyCard';
+import LoginPrompt from '../../components/global/LoginPrompt';
 
 const theme = Theme();
 const data = [
@@ -32,14 +33,17 @@ const RecipePage = ({ navigation, route }) => {
   const [isFavorite, setFavorite] = useState(false);
   const [isLoading, setLoading] = useState(false);
   const [favLoading, setFavLoading] = useState(false);
-
-  const { token } = useSelector((state) => state.auth); // Make sure Redux store is set up
+  const [showAlert, setShowAlert] = useState(false);
+  const { token, isAuthenticated } = useSelector((state) => state.auth); // Make sure Redux store is set up
 
   useEffect(() => {
     checkFavorite();
   }, [token, item]);
 
   const checkFavorite = async () => {
+    if (!isAuthenticated) {
+      return;
+    }
     setFavLoading(true);
     try {
       const favorites = await getFavorites(token);
@@ -85,8 +89,11 @@ const RecipePage = ({ navigation, route }) => {
   }, [item]);
 
   const handleFavorite = async () => {
+    if (!isAuthenticated) {
+      setShowAlert(true);
+      return;
+    }
     setFavLoading(true);
-
     try {
       if (!isFavorite) {
         await AddToFavorite({ id: item.id, token });
@@ -104,6 +111,7 @@ const RecipePage = ({ navigation, route }) => {
 
   return (
     <>
+      <LoginPrompt setShowAlert={setShowAlert} showAlert={showAlert} />
       <View style={styles.container}>
         {isLoading && <Loading />}
         <View style={styles.iconContainer}>

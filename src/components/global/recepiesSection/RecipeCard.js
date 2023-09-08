@@ -6,23 +6,30 @@ import {
   ActivityIndicator,
   Share,
   StyleSheet,
+  Alert,
 } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Divider } from '@rneui/base';
 import { useSelector } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
 
 import { Theme } from '../../../constants/Theme';
 import MyCard from '../MyCard';
 import IconCard from '../IconCard';
 import { AddToFavorite, DeleteFromFavorites } from '../../../store/api';
+import CustomAlert from '../CustomAlert';
+import LoginPrompt from '../LoginPrompt';
 
 const theme = Theme();
 
 const RecipeCard = ({ image, text, onPress, time, uri, item }) => {
   const [isFavorite, setFavorite] = useState(false);
-  const { token, favorites } = useSelector((state) => state.auth);
+  const { token, favorites, isAuthenticated } = useSelector(
+    (state) => state.auth
+  );
   const [isLoading, setLoading] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
 
   useEffect(() => {
     if (favorites) {
@@ -34,6 +41,11 @@ const RecipeCard = ({ image, text, onPress, time, uri, item }) => {
   }, [favorites]);
 
   const handleFavorite = async () => {
+    if (!isAuthenticated) {
+      setShowAlert(true);
+      return;
+    }
+
     setLoading(true);
     if (!isFavorite) {
       await AddToFavorite({ id: item.id, token });
@@ -60,26 +72,30 @@ const RecipeCard = ({ image, text, onPress, time, uri, item }) => {
   };
 
   return (
-    <MyCard style={styles.card}>
-      <TouchableOpacity onPress={onPress} style={styles.container}>
-        <LinearGradient
-          style={styles.container}
-          colors={[theme.palette.primary, theme.palette.tertiary]}
-        >
-          {isLoading ? (
-            <MyCard style={[styles.favIcon, { height: 50, width: 50 }]}>
-              <ActivityIndicator size="large" color={theme.palette.tertiary} />
-            </MyCard>
-          ) : (
-            <IconCard
-              name={isFavorite ? 'heart' : 'heart-outline'}
-              component
-              style={styles.favIcon}
-              color={theme.palette.tertiary}
-              onPress={handleFavorite}
-            />
-          )}
-          {/* <IconCard
+    <>
+      <MyCard style={styles.card}>
+        <TouchableOpacity onPress={onPress} style={styles.container}>
+          <LinearGradient
+            style={styles.container}
+            colors={[theme.palette.primary, theme.palette.tertiary]}
+          >
+            {isLoading ? (
+              <MyCard style={[styles.favIcon, { height: 50, width: 50 }]}>
+                <ActivityIndicator
+                  size="large"
+                  color={theme.palette.tertiary}
+                />
+              </MyCard>
+            ) : (
+              <IconCard
+                name={isFavorite ? 'heart' : 'heart-outline'}
+                component
+                style={styles.favIcon}
+                color={theme.palette.tertiary}
+                onPress={handleFavorite}
+              />
+            )}
+            {/* <IconCard
             name="share"
             component
             style={styles.shareIcon}
@@ -87,16 +103,18 @@ const RecipeCard = ({ image, text, onPress, time, uri, item }) => {
             onPress={shareRecipe}
           /> */}
 
-          <Image source={uri ? { uri: uri } : image} style={styles.image} />
+            <Image source={uri ? { uri: uri } : image} style={styles.image} />
 
-          <Divider width={2} />
-          <View style={styles.textContainer}>
-            <Text style={styles.text}>{text}</Text>
-          </View>
-          {time && <Text style={styles.time}>{time}</Text>}
-        </LinearGradient>
-      </TouchableOpacity>
-    </MyCard>
+            <Divider width={2} />
+            <View style={styles.textContainer}>
+              <Text style={styles.text}>{text}</Text>
+            </View>
+            {time && <Text style={styles.time}>{time}</Text>}
+          </LinearGradient>
+        </TouchableOpacity>
+      </MyCard>
+      <LoginPrompt setShowAlert={setShowAlert} showAlert={showAlert} />
+    </>
   );
 };
 
