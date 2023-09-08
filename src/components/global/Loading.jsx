@@ -3,7 +3,7 @@ import React from 'react';
 import { Theme } from '../../constants/Theme';
 
 const theme = Theme();
-export default function Loading({ style }) {
+export default function Loading({ style, containerStyle }) {
   return (
     <View
       style={{
@@ -14,6 +14,7 @@ export default function Loading({ style }) {
         height: theme.window.windowHeight,
         justifyContent: 'center',
         alignItems: 'center',
+        ...containerStyle,
       }}
     >
       <Image

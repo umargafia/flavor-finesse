@@ -14,39 +14,52 @@ import { Image } from 'react-native';
 import { Theme } from '../../../constants/Theme';
 import Recipe from '../../global/recepiesSection/Recipe';
 import RecipeCard from '../../global/recepiesSection/RecipeCard';
+import Loading from '../../global/Loading';
 
 const theme = Theme();
 
 const Trending = ({ horizontal }) => {
   const [recipes, setRecipes] = useState([]);
   const navigation = useNavigation();
+  const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
     getRecipes();
   }, []);
 
   async function getRecipes() {
+    setLoading(true);
     try {
       const data = await getRandomRecipes();
       setRecipes(data.recipes);
     } catch (error) {
       console.error('Error fetching recipes:', error);
     }
+    setLoading(false);
   }
 
   const handleItemPress = (item) => {
     navigation.navigate('rw/recipe', { item });
   };
 
-  const renderRecipeCard = ({ item }) => (
-    <TouchableOpacity
-      style={styles.recipeCardContainer}
-      onPress={() => handleItemPress(item)}
-    >
-      <Image source={{ uri: item.image }} style={styles.recipeImage} />
-      <Text style={styles.recipeTitle}>{item.title}</Text>
-    </TouchableOpacity>
-  );
+  if (isLoading) {
+    return (
+      <>
+        <Title text="Trending Recipes" />
+        <View
+          style={{
+            height: 100,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <Loading
+            containerStyle={{ height: 100, backgroundColor: 'transparent' }}
+          />
+        </View>
+      </>
+    );
+  }
 
   return (
     <View style={styles.container}>

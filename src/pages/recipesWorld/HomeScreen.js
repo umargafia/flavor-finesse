@@ -8,7 +8,7 @@ import FoodTypeSection from '../../components/foodWorld/foodType/FoodTypeSection
 import CountrySection from '../../components/foodWorld/countrySection/CountrySection';
 import Header from '../../components/global/Header';
 import Recipe from '../../components/global/recepiesSection/Recipe';
-import { getApiKey, getFavorites } from '../../store/api';
+import { getFavorites } from '../../store/api';
 import { saveFavorites } from '../../store/authSlice';
 import Trending from '../../components/foodWorld/Trending/Trending';
 
@@ -23,14 +23,6 @@ const HomeScreen = () => {
   useEffect(() => {
     checkFavorite();
   }, []);
-
-  useEffect(() => {
-    getApikeyFunction();
-  }, []);
-
-  const getApikeyFunction = async () => {
-    await getApiKey();
-  };
 
   const checkFavorite = async () => {
     const data = await getFavorites(token);

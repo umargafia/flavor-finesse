@@ -23,7 +23,7 @@ const Settings = () => {
   function handleSignOut() {
     AsyncStorage.clear();
     dispatch(logout());
-    navigation.replace('welcomeScreen');
+    navigation.navigate('welcomeScreen');
   }
 
   return (
