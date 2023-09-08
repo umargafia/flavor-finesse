@@ -8,7 +8,7 @@ const theme = Theme();
 const AboutScreen = () => {
   const appVersion = Constants.manifest.version || '1.0.0';
 
-  const teamInfo = 'Umar Faruk Musa - Mobile App Developer';
+  const teamInfo = 'By Umar Faruk Musa';
 
   return (
     <View style={styles.container}>

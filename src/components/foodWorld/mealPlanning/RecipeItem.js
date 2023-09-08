@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontFamily: theme.font.sansRegular,
     marginRight: 'auto',
-    maxWidth: '70%',
+    flex: 3,
   },
   amount: {
     fontSize: 20,

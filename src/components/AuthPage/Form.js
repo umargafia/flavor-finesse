@@ -13,7 +13,6 @@ import { Theme } from '../../constants/Theme';
 import MyInput from '../global/MyInput';
 import MyButton from '../global/MyButton';
 import { useAuth } from './useAuth';
-import IconCard from '../global/IconCard';
 
 const theme = Theme();
 
@@ -34,10 +33,8 @@ export default function Form() {
   } = useAuth();
   return (
     <View>
-      <ScrollView
-        contentContainerStyle={styles.container}
-        // keyboardShouldPersistTaps="handled"
-      >
+      <ScrollView contentContainerStyle={styles.container}>
+        <Text style={styles.header}>Flavor Finesse</Text>
         <MyCard style={styles.card}>
           <Text style={styles.title}>{isLogin ? 'Sign In' : 'Sign Up'}</Text>
           {isLogin ? (
@@ -116,12 +113,12 @@ export default function Form() {
             />
           )}
 
-          {isLogin && (
+          {/* {isLogin && (
             <TouchableOpacity style={styles.linkBtn}>
               <Text style={styles.link}>Forgot password?</Text>
             </TouchableOpacity>
-          )}
-          {/* <TouchableOpacity
+          )} */}
+          <TouchableOpacity
             style={styles.linkBtn}
             onPress={() => setlogin((prev) => !prev)}
           >
@@ -130,7 +127,7 @@ export default function Form() {
                 ? "Don't have an account? Sign Up"
                 : 'Already have an account? Sign In'}
             </Text>
-          </TouchableOpacity> */}
+          </TouchableOpacity>
         </MyCard>
       </ScrollView>
     </View>
@@ -141,16 +138,16 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    paddingHorizontal: '5%',
   },
   card: {
-    width: '95%',
+    width: '100%',
     alignItems: 'center',
   },
   title: {
     fontSize: 30,
     fontWeight: 'bold',
     color: theme.palette.tertiary,
+    fontFamily: theme.font.sansRegular,
   },
   link: {
     color: theme.palette.tertiary,
@@ -161,5 +158,12 @@ const styles = StyleSheet.create({
   errorText: {
     color: theme.palette.red,
     textAlign: 'center',
+  },
+  header: {
+    color: theme.palette.white,
+    fontSize: 30,
+    textAlign: 'center',
+    marginBottom: 10,
+    fontFamily: theme.font.sansRegular,
   },
 });
