@@ -22,8 +22,15 @@ const HomeScreen = () => {
 
   useEffect(() => {
     checkFavorite();
-    getApiKey();
   }, []);
+
+  useEffect(() => {
+    getApikeyFunction();
+  }, []);
+
+  const getApikeyFunction = async () => {
+    await getApiKey();
+  };
 
   const checkFavorite = async () => {
     const data = await getFavorites(token);

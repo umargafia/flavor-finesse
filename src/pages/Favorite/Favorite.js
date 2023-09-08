@@ -54,7 +54,7 @@ const Favorites = () => {
 
   if (!isAuthenticated) {
     return (
-      <View style={styles.container}>
+      <View style={[styles.container, { margin: 20 }]}>
         <Header text="Favorites" />
         <Divider />
         <View style={styles.loginContainer}>
@@ -94,7 +94,6 @@ export default Favorites;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    margin: 20,
   },
   loginContainer: {
     flex: 1,
