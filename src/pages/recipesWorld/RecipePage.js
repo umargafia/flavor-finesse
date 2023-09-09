@@ -151,13 +151,7 @@ const RecipePage = ({ navigation, route }) => {
           data={data}
           renderItem={({ item }) => (
             <>
-              <SharedElement
-                id="image"
-                sharedTransitionTag="image"
-                style={styles.sharedElement}
-              >
-                <Image style={styles.image} source={{ uri: recipe.image }} />
-              </SharedElement>
+              <Image style={styles.image} source={{ uri: recipe.image }} />
               <LinearGradient
                 colors={[theme.palette.primary, theme.palette.tertiary]}
                 style={styles.textContainer}

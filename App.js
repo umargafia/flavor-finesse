@@ -3,6 +3,7 @@ import { View } from 'react-native';
 
 import Home from './Home';
 import store from './src/store';
+import BannerAds from './src/pages/Ads/BannerAds';
 
 export default function App() {
   return (
@@ -10,6 +11,7 @@ export default function App() {
       <Provider store={store}>
         <View style={{ flex: 1 }}>
           <Home />
+          <BannerAds />
         </View>
       </Provider>
     </>

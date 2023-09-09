@@ -11,10 +11,13 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
-      "googleServicesFile": "./GoogleService-Info.plist"
+      "googleServicesFile": "./GoogleService-Info.plist",
+      "bundleIdentifier": "com.flavorfinnese.app"
     },
     "android": {
       "adaptiveIcon": {
@@ -29,8 +32,12 @@
     "scheme": "flavor-finesse",
     "extra": {
       "eas": {
-        "projectId": "ef4ed6bd-a4ff-4aac-8fe7-db4c1ed1947b"
+        "projectId": "ae384423-2ca9-44ee-b88c-b1f7ee801bb0"
       }
     }
+  },
+  "react-native-google-mobile-ads": {
+    "android_app_id": "ca-app-pub-1591256891479203~5959814517",
+    "ios_app_id": "ca-app-pub-1591256891479203~9548354471"
   }
 }

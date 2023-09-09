@@ -40,7 +40,7 @@ const Settings = () => {
             />
           </View>
           {!isAuthenticated ? (
-            <LoginRedirectButton color={theme.palette.white} />
+            <LoginRedirectButton color={theme.palette.white} text="Sign In" />
           ) : (
             <>
               <Text style={styles.name}>{user?.data.name}</Text>

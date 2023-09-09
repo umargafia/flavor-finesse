@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { Theme } from '../../constants/Theme';
 
 const theme = Theme();
-export default function LoginRedirectButton({ color }) {
+export default function LoginRedirectButton({ color, text }) {
   const navigation = useNavigation();
   return (
     <TouchableOpacity onPress={() => navigation.navigate('authPage')}>
@@ -15,7 +15,7 @@ export default function LoginRedirectButton({ color }) {
           color && { color, borderBottomColor: color },
         ]}
       >
-        Login to see your favorites
+        {text ? text : 'Login to see your favorites'}
       </Text>
     </TouchableOpacity>
   );
