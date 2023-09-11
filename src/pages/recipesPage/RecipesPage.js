@@ -7,6 +7,7 @@ import { searchRecipes } from '../../store/api';
 import RecipeCard from '../../components/global/recepiesSection/RecipeCard';
 import { Theme } from '../../constants/Theme';
 import Loading from '../../components/global/Loading';
+import BannerAds from '../Ads/BannerAds';
 
 const theme = Theme();
 
@@ -55,6 +56,7 @@ const RecipesPage = ({ route }) => {
           numColumns={theme.window.windowWidth > 600 ? 2 : 1}
         />
       )}
+      <BannerAds />
     </View>
   );
 };

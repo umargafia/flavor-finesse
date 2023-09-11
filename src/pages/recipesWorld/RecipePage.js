@@ -19,6 +19,7 @@ import {
 import Loading from '../../components/global/Loading';
 import MyCard from '../../components/global/MyCard';
 import LoginPrompt from '../../components/global/LoginPrompt';
+import BannerAds from '../Ads/BannerAds';
 
 const theme = Theme();
 const data = [
@@ -163,6 +164,7 @@ const RecipePage = ({ navigation, route }) => {
           keyExtractor={() => `${Date.now()}-${Math.random()}`}
           style={styles.scrolview}
         />
+        <BannerAds />
       </View>
     </>
   );
