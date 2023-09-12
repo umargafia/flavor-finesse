@@ -1,65 +1,79 @@
-import React, { useEffect, useState, useCallback } from 'react';
-import { View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { useCallback, useEffect, useState } from 'react';
+import { BackHandler, Text, TouchableOpacity } from 'react-native';
 import {
-  InterstitialAd,
   AdEventType,
+  InterstitialAd,
   TestIds,
-  BannerAdSize,
 } from 'react-native-google-mobile-ads';
 
-const interstitial = InterstitialAd.createForAdRequest(TestIds.INTERSTITIAL, {
-  requestNonPersonalizedAdsOnly: true,
-  keywords: ['fashion', 'clothing'],
-});
+const adUnitId = TestIds.INTERSTITIAL;
+const adKeywords = ['food', 'food recipes'];
 
-export default function Interstitial() {
+const useInterstitial = () => {
+  const [interstitial, setInterstitial] = useState(null);
   const [loaded, setLoaded] = useState(false);
+  const navigation = useNavigation();
+
+  navigation.setOptions({
+    headerLeft: () => (
+      <TouchableOpacity
+        onPress={() => {
+          if (interstitial && loaded) {
+            interstitial.show();
+          }
+          navigation.goBack();
+        }}
+      >
+        <Text>Back</Text>
+      </TouchableOpacity>
+    ),
+  });
 
   useEffect(() => {
-    const handleAdLoaded = () => {
-      setLoaded(true);
-    };
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      () => {
+        console.log(interstitial);
+        if (interstitial) {
+          interstitial.show();
+        }
+        return false;
+      }
+    );
 
-    const handleAdClosed = () => {
-      setLoaded(false);
-      interstitial.load(); // Load a new interstitial after it's closed
+    return () => {
+      BackHandler.removeEventListener();
     };
+  }, [interstitial]);
 
-    const unsubscribeLoaded = interstitial.addAdEventListener(
+  const loadInterstitial = useCallback(() => {
+    const interstitialAd = InterstitialAd.createForAdRequest(adUnitId, {
+      requestNonPersonalizedAdsOnly: true,
+      keywords: adKeywords,
+    });
+
+    const unsubscribeLoaded = interstitialAd.addAdEventListener(
       AdEventType.LOADED,
-      handleAdLoaded
-    );
-    const unsubscribeClosed = interstitial.addAdEventListener(
-      AdEventType.CLOSED,
-      handleAdClosed
+      () => {
+        setLoaded(true);
+        console.log('load');
+      }
     );
 
-    // Start loading the interstitial straight away
-    interstitial.load();
+    interstitialAd.load();
+    setInterstitial(interstitialAd);
 
-    // Unsubscribe from events on unmount
     return () => {
       unsubscribeLoaded();
-      unsubscribeClosed();
     };
   }, []);
 
   useEffect(() => {
-    let timer;
+    if (!interstitial) {
+      loadInterstitial();
+    }
+  }, [interstitial, loadInterstitial]);
+};
 
-    const showInterstitial = () => {
-      if (loaded) {
-        interstitial.show();
-        timer = setTimeout(showInterstitial, 30000); // Restart the timer
-      }
-    };
-
-    showInterstitial(); // Start the timer immediately
-
-    return () => {
-      clearTimeout(timer);
-    };
-  }, [loaded]);
-
-  return <View />;
-}
+export default useInterstitial;

@@ -30,10 +30,7 @@ const WelcomeScreen = ({ navigation }) => {
         resizeMode="cover"
         style={styles.backgroundImage}
       >
-        <LinearGradient
-          colors={['rgba(0, 0, 0, 0.8)', 'transparent']}
-          style={styles.overlay}
-        >
+        <View style={styles.overlay}>
           <View style={styles.content}>
             <Text style={styles.title}>Welcome to Flavor Finesse!</Text>
             <Text style={styles.subtitle}>
@@ -68,7 +65,7 @@ const WelcomeScreen = ({ navigation }) => {
               </TouchableOpacity>
             </View>
           </View>
-        </LinearGradient>
+        </View>
       </ImageBackground>
     </View>
   );
