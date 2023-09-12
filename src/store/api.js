@@ -1,7 +1,7 @@
 const BaseUrl = 'https://flavorfinesse.onrender.com/api/v1/';
 // const BaseUrl = 'localhost:4000/api/v1/';
-
 const spoonacularBaseApi = 'https://api.spoonacular.com/recipes/';
+const Number = 300;
 
 export const sendRequest = async ({ url, data, method, token }) => {
   try {
@@ -32,12 +32,11 @@ export const getApiKey = async () => {
 export const searchRecipes = async (data) => {
   const query = data.query;
   const type = data.type;
-  const number = 10;
   const apiKey = await getApiKey();
 
   try {
     const response = await fetch(
-      `${spoonacularBaseApi}complexSearch?query=${query}&type=${type}&number=${number}&apiKey=${apiKey}`
+      `${spoonacularBaseApi}complexSearch?query=${query}&type=${type}&number=${Number}&apiKey=${apiKey}`
     );
 
     const data = await response.json();
@@ -160,7 +159,7 @@ export const searchRecipesv2 = async ({ searchText }) => {
 
   try {
     const response = await fetch(
-      `${spoonacularBaseApi}complexSearch?query=${searchText}&number=10&apiKey=${apiKey}`
+      `${spoonacularBaseApi}complexSearch?query=${searchText}&number=${Number}&apiKey=${apiKey}`
     );
     const data = await response.json();
 
@@ -173,7 +172,7 @@ export const getRandomRecipes = async () => {
 
   try {
     const response = await fetch(
-      `${spoonacularBaseApi}random?number=10&apiKey=${apiKey}`
+      `${spoonacularBaseApi}random?number=${Number}&apiKey=${apiKey}`
     );
 
     const data = await response.json();
