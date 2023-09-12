@@ -66,7 +66,7 @@ const Trending = ({ horizontal }) => {
     <View style={styles.container}>
       <Title text="Trending Recipes" />
       <VirtualizedList
-        getItemCount={() => recipes.length}
+        getItemCount={() => recipes?.length}
         getItem={(data, index) => {
           return {
             id: index,
@@ -120,4 +120,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Trending;
+export default React.memo(Trending);

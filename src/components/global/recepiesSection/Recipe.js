@@ -57,7 +57,7 @@ const Recipe = ({ data }) => {
       )}
       <Text style={styles.title}>Recipes World</Text>
       <VirtualizedList
-        getItemCount={() => recipes.length}
+        getItemCount={() => recipes?.length}
         getItem={(data, index) => {
           return {
             id: index,

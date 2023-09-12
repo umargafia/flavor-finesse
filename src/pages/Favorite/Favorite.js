@@ -73,7 +73,7 @@ const Favorites = () => {
           <Text style={styles.errorText}>{error}</Text>
         ) : (
           <VirtualizedList
-            getItemCount={() => favoriteRecipes.length}
+            getItemCount={() => favoriteRecipes?.length}
             getItem={(data, index) => {
               return {
                 id: index,

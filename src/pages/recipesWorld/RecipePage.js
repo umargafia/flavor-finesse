@@ -154,7 +154,7 @@ const RecipePage = ({ navigation, route }) => {
         </View>
 
         <VirtualizedList
-          getItemCount={() => data.length}
+          getItemCount={() => data?.length}
           getItem={(data, index) => {
             return {
               id: index,

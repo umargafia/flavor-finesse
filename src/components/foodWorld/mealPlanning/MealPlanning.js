@@ -40,7 +40,7 @@ const MealPlanning = ({ recipe, instruction }) => {
         <MyCard style={styles.ingredientsContainer}>
           <Text style={styles.ingredientText}>Ingredients</Text>
           <VirtualizedList
-            getItemCount={() => recipe.length}
+            getItemCount={() => recipe?.length}
             getItem={(data, index) => {
               return {
                 id: index,
@@ -57,7 +57,7 @@ const MealPlanning = ({ recipe, instruction }) => {
         <MyCard style={styles.ingredientsContainer}>
           <Text style={styles.ingredientText}>Instructions</Text>
           <VirtualizedList
-            getItemCount={() => instruction.length}
+            getItemCount={() => instruction?.length}
             getItem={(data, index) => {
               return {
                 id: index,
@@ -76,7 +76,7 @@ const MealPlanning = ({ recipe, instruction }) => {
   );
 };
 
-export default MealPlanning;
+export default React.memo(MealPlanning);
 
 const styles = StyleSheet.create({
   container: {

@@ -47,7 +47,7 @@ const RecipesPage = ({ route }) => {
         <Loading style={styles.loader} />
       ) : (
         <VirtualizedList
-          getItemCount={() => recipes.length}
+          getItemCount={() => recipes?.length}
           getItem={(data, index) => {
             return {
               id: index,

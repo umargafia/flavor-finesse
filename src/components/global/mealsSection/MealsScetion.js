@@ -39,7 +39,7 @@ const MealsSection = () => {
     <View style={styles.container}>
       <Text style={styles.title}>Recommended</Text>
       <VirtualizedList
-        getItemCount={() => dummyData.length}
+        getItemCount={() => dummyData?.length}
         getItem={(data, index) => {
           return {
             id: index,

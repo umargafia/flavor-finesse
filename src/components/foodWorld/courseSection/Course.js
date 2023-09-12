@@ -19,7 +19,7 @@ const Course = () => {
       <Title text="Recipes by Course" />
       <View>
         <VirtualizedList
-          getItemCount={() => CourseList.length}
+          getItemCount={() => CourseList?.length}
           getItem={(data, index) => {
             return {
               id: index,
@@ -44,7 +44,7 @@ const Course = () => {
   );
 };
 
-export default Course;
+export default React.memo(Course);
 
 const styles = StyleSheet.create({
   container: {

@@ -71,7 +71,7 @@ const SearchPage = () => {
       ) : (
         <View style={styles.resultsContainer}>
           <VirtualizedList
-            getItemCount={() => searchResults.length}
+            getItemCount={() => searchResults?.length}
             getItem={(data, index) => {
               return {
                 id: index,
