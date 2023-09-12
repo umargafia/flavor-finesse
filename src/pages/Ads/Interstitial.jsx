@@ -8,7 +8,7 @@ import {
 } from 'react-native-google-mobile-ads';
 
 const adUnitId = TestIds.INTERSTITIAL;
-const adKeywords = ['food', 'food recipes'];
+const adKeywords = ['food', 'recipes'];
 
 const useInterstitial = () => {
   const [interstitial, setInterstitial] = useState(null);
@@ -74,6 +74,15 @@ const useInterstitial = () => {
       loadInterstitial();
     }
   }, [interstitial, loadInterstitial]);
+
+  return {
+    handleBack: () => {
+      if (interstitial && loaded) {
+        interstitial.show();
+      }
+      navigation.goBack();
+    },
+  };
 };
 
 export default useInterstitial;

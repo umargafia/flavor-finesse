@@ -1,7 +1,6 @@
 import { FlatList, StyleSheet, View, ActivityIndicator } from 'react-native';
 import { Image } from 'react-native';
 import { useEffect, useState } from 'react';
-import { SharedElement } from 'react-native-shared-element';
 import { useSelector } from 'react-redux';
 
 import { Theme } from '../../constants/Theme';
@@ -20,7 +19,7 @@ import Loading from '../../components/global/Loading';
 import MyCard from '../../components/global/MyCard';
 import LoginPrompt from '../../components/global/LoginPrompt';
 import BannerAds from '../Ads/BannerAds';
-
+import useInterstitial from '../Ads/Interstitial';
 const theme = Theme();
 const data = [
   {
@@ -35,7 +34,8 @@ const RecipePage = ({ navigation, route }) => {
   const [isLoading, setLoading] = useState(false);
   const [favLoading, setFavLoading] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
-  const { token, isAuthenticated } = useSelector((state) => state.auth); // Make sure Redux store is set up
+  const { token, isAuthenticated } = useSelector((state) => state.auth);
+  const { handleBack } = useInterstitial();
 
   useEffect(() => {
     checkFavorite();
@@ -118,7 +118,7 @@ const RecipePage = ({ navigation, route }) => {
         <View style={styles.iconContainer}>
           <IconCard
             name="chevron-back-outline"
-            onPress={() => navigation.goBack()}
+            onPress={handleBack}
             component
             style={styles.backIcon}
             color={theme.palette.white}
