@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, FlatList } from 'react-native';
+import { StyleSheet, Text, View, VirtualizedList } from 'react-native';
 import React from 'react';
 
 import { Theme } from '../../../constants/Theme';
@@ -18,7 +18,14 @@ const Course = () => {
     <View style={styles.container}>
       <Title text="Recipes by Course" />
       <View>
-        <FlatList
+        <VirtualizedList
+          getItemCount={() => CourseList.length}
+          getItem={(data, index) => {
+            return {
+              id: index,
+              title: data.name,
+            };
+          }}
           horizontal
           showsHorizontalScrollIndicator={false}
           renderItem={(item) => (

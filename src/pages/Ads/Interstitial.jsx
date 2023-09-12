@@ -41,7 +41,7 @@ const useInterstitial = () => {
     const backHandler = BackHandler.addEventListener(
       'hardwareBackPress',
       () => {
-        console.log(interstitial);
+        // console.log(interstitial);
         if (interstitial) {
           interstitial.show();
         }
@@ -64,7 +64,7 @@ const useInterstitial = () => {
       AdEventType.LOADED,
       () => {
         setLoaded(true);
-        console.log('load');
+        // console.log('load');
       }
     );
 

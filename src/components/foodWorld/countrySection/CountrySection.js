@@ -1,4 +1,10 @@
-import { FlatList, StyleSheet, Text, View } from 'react-native';
+import {
+  VirtualizedList,
+  StyleSheet,
+  Text,
+  View,
+  FlatList,
+} from 'react-native';
 import React from 'react';
 
 import { Theme } from '../../../constants/Theme';

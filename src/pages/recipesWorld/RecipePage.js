@@ -1,6 +1,12 @@
-import { FlatList, StyleSheet, View, ActivityIndicator } from 'react-native';
+import {
+  FlatList,
+  StyleSheet,
+  View,
+  ActivityIndicator,
+  VirtualizedList,
+} from 'react-native';
 import { Image } from 'react-native';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import { Theme } from '../../constants/Theme';
@@ -55,7 +61,7 @@ const RecipePage = ({ navigation, route }) => {
 
       setFavorite(isItemFavorite);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
     setFavLoading(false);
   };
@@ -147,7 +153,14 @@ const RecipePage = ({ navigation, route }) => {
           </MyGrid>
         </View>
 
-        <FlatList
+        <VirtualizedList
+          getItemCount={() => data.length}
+          getItem={(data, index) => {
+            return {
+              id: index,
+              title: data.name,
+            };
+          }}
           showsVerticalScrollIndicator={false}
           data={data}
           renderItem={({ item }) => (
@@ -170,7 +183,7 @@ const RecipePage = ({ navigation, route }) => {
   );
 };
 
-export default RecipePage;
+export default React.memo(RecipePage);
 
 const styles = StyleSheet.create({
   container: {

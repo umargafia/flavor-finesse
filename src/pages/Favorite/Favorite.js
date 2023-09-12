@@ -72,7 +72,14 @@ const Favorites = () => {
         {error ? (
           <Text style={styles.errorText}>{error}</Text>
         ) : (
-          <FlatList
+          <VirtualizedList
+            getItemCount={() => favoriteRecipes.length}
+            getItem={(data, index) => {
+              return {
+                id: index,
+                title: data.name,
+              };
+            }}
             data={favoriteRecipes}
             keyExtractor={(item) => item.id.toString()}
             renderItem={({ item }) => <FavoriteCard item={item} />}

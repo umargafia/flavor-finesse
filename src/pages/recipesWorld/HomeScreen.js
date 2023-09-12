@@ -1,4 +1,4 @@
-import { FlatList, StyleSheet, View } from 'react-native';
+import { FlatList, StyleSheet, View, VirtualizedList } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 
@@ -32,24 +32,30 @@ const HomeScreen = () => {
   return (
     <View style={styles.container}>
       <Header text="Flavor Finesse" />
-      <FlatList
+      <VirtualizedList
         showsVerticalScrollIndicator={false}
+        getItemCount={() => data.length}
+        getItem={(data, index) => {
+          return {
+            id: index,
+            title: data.name,
+          };
+        }}
         data={data}
         renderItem={({ item }) => <Recipe item={item} data={type} />}
-        keyExtractor={(item) => item.id}
-        ListHeaderComponent={
+        keyExtractor={(item) => item.id.toString()}
+        ListHeaderComponent={() => (
           <View style={styles.contentContainer}>
             <FoodTypeSection />
             {type === 'all' && (
               <>
                 <Course />
-                {/* <MealsSection /> */}
                 <Trending />
                 <CountrySection />
               </>
             )}
           </View>
-        }
+        )}
         ListFooterComponent={<View style={styles.footer} />}
       />
     </View>

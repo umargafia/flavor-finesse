@@ -1,4 +1,10 @@
-import { FlatList, StyleSheet, Text, View } from 'react-native';
+import {
+  FlatList,
+  StyleSheet,
+  Text,
+  View,
+  VirtualizedList,
+} from 'react-native';
 import React from 'react';
 
 import { Theme } from '../../../constants/Theme';
@@ -33,7 +39,14 @@ const MealPlanning = ({ recipe, instruction }) => {
         </MyGrid>
         <MyCard style={styles.ingredientsContainer}>
           <Text style={styles.ingredientText}>Ingredients</Text>
-          <FlatList
+          <VirtualizedList
+            getItemCount={() => recipe.length}
+            getItem={(data, index) => {
+              return {
+                id: index,
+                title: data.name,
+              };
+            }}
             data={recipe?.extendedIngredients}
             showsVerticalScrollIndicator={false}
             renderItem={({ item }) => <RecipeItem item={item} />}
@@ -43,7 +56,14 @@ const MealPlanning = ({ recipe, instruction }) => {
         </MyCard>
         <MyCard style={styles.ingredientsContainer}>
           <Text style={styles.ingredientText}>Instructions</Text>
-          <FlatList
+          <VirtualizedList
+            getItemCount={() => instruction.length}
+            getItem={(data, index) => {
+              return {
+                id: index,
+                title: data.name,
+              };
+            }}
             data={instruction}
             showsVerticalScrollIndicator={false}
             renderItem={({ item }) => <InstructionCard item={item} />}

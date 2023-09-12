@@ -109,7 +109,6 @@ export const AddToFavorite = async ({ id, token }) => {
 
 export const getFavorites = async (token) => {
   const response = await sendRequest({ url: `favorites`, token });
-  console.log(response);
   return response;
 };
 

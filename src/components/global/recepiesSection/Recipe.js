@@ -1,4 +1,10 @@
-import { FlatList, StyleSheet, Text, View } from 'react-native';
+import {
+  FlatList,
+  StyleSheet,
+  Text,
+  View,
+  VirtualizedList,
+} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
@@ -50,7 +56,14 @@ const Recipe = ({ data }) => {
         />
       )}
       <Text style={styles.title}>Recipes World</Text>
-      <FlatList
+      <VirtualizedList
+        getItemCount={() => recipes.length}
+        getItem={(data, index) => {
+          return {
+            id: index,
+            title: data.name,
+          };
+        }}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollView}
         data={recipes}
@@ -64,7 +77,7 @@ const Recipe = ({ data }) => {
         )}
         keyExtractor={(item) => item?.id}
         numColumns={theme.window.windowWidth > 600 ? 2 : 1}
-      ></FlatList>
+      />
     </View>
   );
 };

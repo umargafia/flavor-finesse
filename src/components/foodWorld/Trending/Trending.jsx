@@ -4,6 +4,7 @@ import {
   Text,
   View,
   TouchableOpacity,
+  VirtualizedList,
 } from 'react-native';
 import React, { useEffect, useState } from 'react';
 
@@ -64,7 +65,14 @@ const Trending = ({ horizontal }) => {
   return (
     <View style={styles.container}>
       <Title text="Trending Recipes" />
-      <FlatList
+      <VirtualizedList
+        getItemCount={() => recipes.length}
+        getItem={(data, index) => {
+          return {
+            id: index,
+            title: data.name,
+          };
+        }}
         horizontal={horizontal ? false : true}
         showsHorizontalScrollIndicator={false}
         data={recipes}

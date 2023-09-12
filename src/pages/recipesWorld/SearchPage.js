@@ -70,7 +70,14 @@ const SearchPage = () => {
         />
       ) : (
         <View style={styles.resultsContainer}>
-          <FlatList
+          <VirtualizedList
+            getItemCount={() => searchResults.length}
+            getItem={(data, index) => {
+              return {
+                id: index,
+                title: data.name,
+              };
+            }}
             data={searchResults}
             keyExtractor={(item) => item.id.toString()}
             showsVerticalScrollIndicator={false}

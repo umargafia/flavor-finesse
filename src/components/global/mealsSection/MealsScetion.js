@@ -1,29 +1,35 @@
-import { FlatList, StyleSheet, Text, View } from "react-native";
-import React from "react";
+import {
+  FlatList,
+  StyleSheet,
+  Text,
+  View,
+  VirtualizedList,
+} from 'react-native';
+import React from 'react';
 
-import { Theme } from "../../../constants/Theme";
-import MealsCard from "./MealsCard";
+import { Theme } from '../../../constants/Theme';
+import MealsCard from './MealsCard';
 
 const dummyData = [
   {
     id: 1,
-    title: "Tea and Pancake", 
+    title: 'Tea and Pancake',
   },
   {
     id: 2,
-    title: "Tea and Pancake",
+    title: 'Tea and Pancake',
   },
   {
     id: 3,
-    title: "Tea and Pancake",
+    title: 'Tea and Pancake',
   },
   {
     id: 4,
-    title: "Tea and Pancake",
+    title: 'Tea and Pancake',
   },
   {
     id: 5,
-    title: "Tea and Pancake",
+    title: 'Tea and Pancake',
   },
 ];
 
@@ -32,8 +38,14 @@ const MealsSection = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Recommended</Text>
-
-      <FlatList
+      <VirtualizedList
+        getItemCount={() => dummyData.length}
+        getItem={(data, index) => {
+          return {
+            id: index,
+            title: data.name,
+          };
+        }}
         horizontal
         showsHorizontalScrollIndicator={false}
         renderItem={(item) => <MealsCard />}

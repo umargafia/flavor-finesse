@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { FlatList, StyleSheet, View } from 'react-native';
+import { FlatList, StyleSheet, View, VirtualizedList } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
 import FoodTypeCard from './FoodTypeCard';
