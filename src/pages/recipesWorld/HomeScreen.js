@@ -34,7 +34,7 @@ const HomeScreen = () => {
       <Header text="Flavor Finesse" />
       <VirtualizedList
         showsVerticalScrollIndicator={false}
-        getItemCount={() => data.length}
+        getItemCount={() => data?.length}
         getItem={(data, index) => {
           return {
             id: index,

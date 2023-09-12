@@ -1,7 +1,7 @@
 const BaseUrl = 'https://flavorfinesse.onrender.com/api/v1/';
 // const BaseUrl = 'localhost:4000/api/v1/';
 const spoonacularBaseApi = 'https://api.spoonacular.com/recipes/';
-const Number = 10;
+const Number = 150;
 
 export const sendRequest = async ({ url, data, method, token }) => {
   try {
@@ -175,7 +175,7 @@ export const getRandomRecipes = async () => {
     );
 
     const data = await response.json();
-    console.log(data);
+
     return data;
   } catch (error) {}
 };

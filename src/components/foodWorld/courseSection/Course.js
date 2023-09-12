@@ -1,4 +1,10 @@
-import { StyleSheet, Text, View, VirtualizedList } from 'react-native';
+import {
+  FlatList,
+  StyleSheet,
+  Text,
+  View,
+  VirtualizedList,
+} from 'react-native';
 import React from 'react';
 
 import { Theme } from '../../../constants/Theme';
@@ -18,21 +24,15 @@ const Course = () => {
     <View style={styles.container}>
       <Title text="Recipes by Course" />
       <View>
-        <VirtualizedList
-          getItemCount={() => CourseList?.length}
-          getItem={(data, index) => {
-            return {
-              id: index,
-              title: data.name,
-            };
-          }}
+        <FlatList
           horizontal
           showsHorizontalScrollIndicator={false}
-          renderItem={(item) => (
+          initialNumToRender={8}
+          renderItem={({ item }) => (
             <CourseCard
-              image={item.item.image}
-              text={item.item.name}
-              onPress={() => handleItemPress(item.item)}
+              image={item.image}
+              text={item.name}
+              onPress={() => handleItemPress(item)}
             />
           )}
           data={CourseList}

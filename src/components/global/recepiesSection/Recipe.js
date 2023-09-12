@@ -57,11 +57,15 @@ const Recipe = ({ data }) => {
       )}
       <Text style={styles.title}>Recipes World</Text>
       <VirtualizedList
-        getItemCount={() => recipes?.length}
+        getItemCount={() => (recipes ? recipes.length : 0)} // Use a ternary operator to handle the case when 'recipes' is null or undefined.
         getItem={(data, index) => {
+          const item = data[index];
           return {
-            id: index,
-            title: data.name,
+            key: item.id.toString(), // Ensure 'key' is a string.
+            id: item.id,
+            title: item.title,
+            image: item.image,
+            item: item,
           };
         }}
         showsVerticalScrollIndicator={false}
@@ -69,13 +73,13 @@ const Recipe = ({ data }) => {
         data={recipes}
         renderItem={({ item }) => (
           <RecipeCard
-            uri={item?.image}
-            text={item?.title}
+            uri={item.image}
+            text={item.title}
             item={item}
             onPress={() => handleItemPress(item)}
           />
         )}
-        keyExtractor={(item) => item?.id}
+        keyExtractor={(item) => item.id.toString()} // Ensure 'keyExtractor' returns a string.
         numColumns={theme.window.windowWidth > 600 ? 2 : 1}
       />
     </View>

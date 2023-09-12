@@ -66,11 +66,15 @@ const Trending = ({ horizontal }) => {
     <View style={styles.container}>
       <Title text="Trending Recipes" />
       <VirtualizedList
-        getItemCount={() => recipes?.length}
+        getItemCount={() => (recipes ? recipes.length : 0)}
         getItem={(data, index) => {
+          const item = data[index];
           return {
-            id: index,
-            title: data.name,
+            key: item.id.toString(),
+            id: item.id,
+            title: item.title,
+            image: item.image,
+            item: item,
           };
         }}
         horizontal={horizontal ? false : true}

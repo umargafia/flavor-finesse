@@ -8,6 +8,7 @@ import { Theme } from '../../constants/Theme';
 import Loading from '../../components/global/Loading';
 import BannerAds from '../Ads/BannerAds';
 import useInterstitial from '../Ads/Interstitial';
+import { Text } from 'react-native';
 
 const theme = Theme();
 
@@ -49,9 +50,13 @@ const RecipesPage = ({ route }) => {
         <VirtualizedList
           getItemCount={() => recipes?.length}
           getItem={(data, index) => {
+            const item = data[index];
             return {
-              id: index,
-              title: data.name,
+              key: item.id,
+              id: item.id,
+              title: item.title,
+              image: item.image,
+              item,
             };
           }}
           showsVerticalScrollIndicator={false}

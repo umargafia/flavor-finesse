@@ -39,14 +39,7 @@ const MealPlanning = ({ recipe, instruction }) => {
         </MyGrid>
         <MyCard style={styles.ingredientsContainer}>
           <Text style={styles.ingredientText}>Ingredients</Text>
-          <VirtualizedList
-            getItemCount={() => recipe?.length}
-            getItem={(data, index) => {
-              return {
-                id: index,
-                title: data.name,
-              };
-            }}
+          <FlatList
             data={recipe?.extendedIngredients}
             showsVerticalScrollIndicator={false}
             renderItem={({ item }) => <RecipeItem item={item} />}
@@ -56,14 +49,7 @@ const MealPlanning = ({ recipe, instruction }) => {
         </MyCard>
         <MyCard style={styles.ingredientsContainer}>
           <Text style={styles.ingredientText}>Instructions</Text>
-          <VirtualizedList
-            getItemCount={() => instruction?.length}
-            getItem={(data, index) => {
-              return {
-                id: index,
-                title: data.name,
-              };
-            }}
+          <FlatList
             data={instruction}
             showsVerticalScrollIndicator={false}
             renderItem={({ item }) => <InstructionCard item={item} />}

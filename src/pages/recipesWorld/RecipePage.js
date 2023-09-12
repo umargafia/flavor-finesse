@@ -165,7 +165,7 @@ const RecipePage = ({ navigation, route }) => {
           data={data}
           renderItem={({ item }) => (
             <>
-              <Image style={styles.image} source={{ uri: recipe.image }} />
+              <Image style={styles.image} source={{ uri: recipe?.image }} />
               <LinearGradient
                 colors={[theme.palette.primary, theme.palette.tertiary]}
                 style={styles.textContainer}
