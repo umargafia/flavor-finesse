@@ -5,6 +5,7 @@ import {
   FlatList,
   Text,
   ActivityIndicator,
+  VirtualizedList,
 } from 'react-native';
 import Header from '../../components/global/Header';
 import MyInput from '../../components/global/MyInput';
@@ -71,11 +72,15 @@ const SearchPage = () => {
       ) : (
         <View style={styles.resultsContainer}>
           <VirtualizedList
-            getItemCount={() => searchResults?.length}
+            getItemCount={() => (searchResults ? searchResults?.length : 0)}
             getItem={(data, index) => {
+              const item = data[index];
               return {
-                id: index,
-                title: data.name,
+                key: item.id.toString(),
+                id: item.id,
+                title: item.title,
+                image: item.image,
+                item: item,
               };
             }}
             data={searchResults}

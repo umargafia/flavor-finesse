@@ -1,3 +1,4 @@
+import React, { lazy, Suspense, useCallback, useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -5,17 +6,17 @@ import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { useDispatch, useSelector } from 'react-redux';
 
-import AuthPage from './src/pages/AuthPage';
-import { useCallback, useEffect } from 'react';
-import RecipePage from './src/pages/recipesWorld/RecipePage';
 import { checkUser } from './src/store/authSlice';
-import RecipesPage from './src/pages/recipesPage/RecipesPage';
-import BottomTabScreens from './src/pages/BottomTabScreens';
-import WelcomeScreen from './src/pages/WelcomeScreen';
-import ProfilePage from './src/pages/Settings/Profile';
-import AboutScreen from './src/pages/Settings/AboutPage';
-import PrivacyPolicy from './src/pages/Privacypolicy';
-import TermsAndCondition from './src/pages/TermsAndCondition';
+const AuthPage = lazy(() => import('./src/pages/AuthPage'));
+const RecipePage = lazy(() => import('./src/pages/recipesWorld/RecipePage'));
+const RecipesPage = lazy(() => import('./src/pages/recipesPage/RecipesPage'));
+const BottomTabScreens = lazy(() => import('./src/pages/BottomTabScreens'));
+const WelcomeScreen = lazy(() => import('./src/pages/WelcomeScreen'));
+const ProfilePage = lazy(() => import('./src/pages/Settings/Profile'));
+const AboutScreen = lazy(() => import('./src/pages/Settings/AboutPage'));
+const PrivacyPolicy = lazy(() => import('./src/pages/Privacypolicy'));
+const TermsAndCondition = lazy(() => import('./src/pages/TermsAndCondition'));
+const Loading = lazy(() => import('./src/components/global/Loading'));
 
 const Stack = createNativeStackNavigator();
 SplashScreen.preventAutoHideAsync();
@@ -40,7 +41,7 @@ export default function Home() {
   }, [onLayoutRootView, checkUser]);
 
   return (
-    <>
+    <Suspense fallback={<Loading />}>
       <StatusBar style="auto" />
       <NavigationContainer>
         <Stack.Navigator>
@@ -106,6 +107,6 @@ export default function Home() {
           />
         </Stack.Navigator>
       </NavigationContainer>
-    </>
+    </Suspense>
   );
 }

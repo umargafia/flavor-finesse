@@ -5,6 +5,7 @@ import {
   Text,
   TouchableOpacity,
   View,
+  VirtualizedList,
 } from 'react-native';
 import { Divider } from '@rneui/base';
 import React, { useEffect, useState } from 'react';
@@ -75,14 +76,20 @@ const Favorites = () => {
           <VirtualizedList
             getItemCount={() => favoriteRecipes?.length}
             getItem={(data, index) => {
+              const item = data[index];
               return {
-                id: index,
-                title: data.name,
+                key: item.id.toString(), // Ensure 'key' is a string.
+                id: item.id,
+                item: item,
+                title: item.title,
+                image: item.image,
               };
             }}
             data={favoriteRecipes}
             keyExtractor={(item) => item.id.toString()}
-            renderItem={({ item }) => <FavoriteCard item={item} />}
+            renderItem={({ item }) => (
+              <FavoriteCard item={item} image={item.image} />
+            )}
             refreshControl={
               <RefreshControl
                 refreshing={isRefreshing}

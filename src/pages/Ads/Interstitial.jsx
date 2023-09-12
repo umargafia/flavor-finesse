@@ -1,16 +1,12 @@
 import { useNavigation } from '@react-navigation/native';
 import { useCallback, useEffect, useState } from 'react';
 import { BackHandler, Text, TouchableOpacity } from 'react-native';
-import {
-  AdEventType,
-  InterstitialAd,
-  TestIds,
-} from 'react-native-google-mobile-ads';
+import { AdEventType, InterstitialAd } from 'react-native-google-mobile-ads';
 import MyIcon from '../../components/global/MyIcon';
 import MyGrid from '../../components/global/MyGrid';
 import { Theme } from '../../constants/Theme';
 
-const adUnitId = TestIds.INTERSTITIAL;
+const adUnitId = 'ca-app-pub-1591256891479203/9345529718';
 const adKeywords = ['food', 'recipes'];
 const theme = Theme();
 
@@ -23,7 +19,8 @@ const useInterstitial = () => {
     headerLeft: () => (
       <TouchableOpacity
         onPress={() => {
-          if (interstitial && loaded) {
+          console.log(interstitial._loaded);
+          if (interstitial && interstitial._loaded) {
             interstitial.show();
           }
           navigation.goBack();
@@ -56,7 +53,7 @@ const useInterstitial = () => {
 
   const loadInterstitial = useCallback(() => {
     const interstitialAd = InterstitialAd.createForAdRequest(adUnitId, {
-      requestNonPersonalizedAdsOnly: true,
+      requestNonPersonalizedAdsOnly: false,
       keywords: adKeywords,
     });
 
@@ -84,7 +81,7 @@ const useInterstitial = () => {
 
   return {
     handleBack: () => {
-      if (interstitial && loaded) {
+      if (interstitial && interstitial._loaded) {
         interstitial.show();
       }
       navigation.goBack();
