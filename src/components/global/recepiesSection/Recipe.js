@@ -1,6 +1,7 @@
 import { FlatList, StyleSheet, Text, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 
 import { Theme } from '../../../constants/Theme';
 import RecipeCard from './RecipeCard';
@@ -13,6 +14,7 @@ const Recipe = ({ data }) => {
   const [recipes, setRecipes] = useState([]);
   const navigation = useNavigation();
   const [isLoading, setLoading] = useState(false);
+  const { type } = useSelector((state) => state.foodWorld);
 
   useEffect(() => {
     getRecipes();
@@ -20,8 +22,13 @@ const Recipe = ({ data }) => {
 
   async function getRecipes() {
     setLoading(true);
-    const data = await getRandomRecipes();
-    setRecipes(data.recipes);
+    if (type === 'all') {
+      const data = await getRandomRecipes();
+      setRecipes(data.recipes);
+    } else {
+      const data = await searchRecipes({ query: type, type });
+      setRecipes(data);
+    }
     setLoading(false);
   }
 

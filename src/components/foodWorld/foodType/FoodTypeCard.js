@@ -27,13 +27,14 @@ const styles = StyleSheet.create({
     opacity: 0.6,
   },
   card: {
-    width: theme.window.windowWidth > 600 ? 100 : 50,
+    // width: theme.window.windowWidth > 600 ? 100 : 50,
+    padding: 10,
     alignItems: 'center',
     backgroundColor: theme.palette.primary,
-    borderRadius: theme.window.windowWidth > 600 ? 10 : 20,
+    borderRadius: theme.window.windowWidth > 600 ? 10 : 10,
   },
   icon: {
-    fontSize: theme.window.windowWidth <= 360 ? 15 : 30,
+    fontSize: 30,
   },
   title: {
     marginTop: 6,

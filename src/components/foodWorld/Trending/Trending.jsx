@@ -65,7 +65,7 @@ const Trending = ({ horizontal }) => {
     <View style={styles.container}>
       <Title text="Trending Recipes" />
       <FlatList
-        horizontal
+        horizontal={horizontal ? false : true}
         showsHorizontalScrollIndicator={false}
         data={recipes}
         keyExtractor={(item) => item.id.toString()}

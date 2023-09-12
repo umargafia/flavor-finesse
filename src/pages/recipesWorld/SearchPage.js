@@ -60,7 +60,7 @@ const SearchPage = () => {
 
       {searchText.trim().length === 0 ? (
         <View>
-          <Trending />
+          <Trending horizontal />
         </View>
       ) : isLoading ? (
         <ActivityIndicator

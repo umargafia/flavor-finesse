@@ -6,9 +6,13 @@ import {
   InterstitialAd,
   TestIds,
 } from 'react-native-google-mobile-ads';
+import MyIcon from '../../components/global/MyIcon';
+import MyGrid from '../../components/global/MyGrid';
+import { Theme } from '../../constants/Theme';
 
 const adUnitId = TestIds.INTERSTITIAL;
 const adKeywords = ['food', 'recipes'];
+const theme = Theme();
 
 const useInterstitial = () => {
   const [interstitial, setInterstitial] = useState(null);
@@ -25,7 +29,10 @@ const useInterstitial = () => {
           navigation.goBack();
         }}
       >
-        <Text>Back</Text>
+        <MyGrid style={{ marginRight: 20 }}>
+          <MyIcon name="chevron-back" color={theme.palette.tertiary} />
+          <Text style={{ color: theme.palette.tertiary }}>Back</Text>
+        </MyGrid>
       </TouchableOpacity>
     ),
   });
