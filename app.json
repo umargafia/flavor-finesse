@@ -34,7 +34,8 @@
       "eas": {
         "projectId": "ae384423-2ca9-44ee-b88c-b1f7ee801bb0"
       }
-    }
+    },
+    "owner": "umargafia"
   },
   "react-native-google-mobile-ads": {
     "android_app_id": "ca-app-pub-1591256891479203~5959814517",

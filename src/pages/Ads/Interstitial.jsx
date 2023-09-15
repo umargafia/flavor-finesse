@@ -19,7 +19,7 @@ const useInterstitial = () => {
     headerLeft: () => (
       <TouchableOpacity
         onPress={() => {
-          console.log(interstitial._loaded);
+          console.log(interstitial);
           if (interstitial && interstitial._loaded) {
             interstitial.show();
           }
@@ -38,8 +38,8 @@ const useInterstitial = () => {
     const backHandler = BackHandler.addEventListener(
       'hardwareBackPress',
       () => {
-        // console.log(interstitial);
-        if (interstitial) {
+        console.log(interstitial);
+        if (interstitial && interstitial._loaded) {
           interstitial.show();
         }
         return false;

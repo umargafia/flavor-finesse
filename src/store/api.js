@@ -1,4 +1,4 @@
-const BaseUrl = 'https://flavorfinesse.onrender.com/api/v1/';
+const BaseUrl = 'https://flavorfinesse-cb9242efb23c.herokuapp.com/api/v1/';
 // const BaseUrl = 'localhost:4000/api/v1/';
 const spoonacularBaseApi = 'https://api.spoonacular.com/recipes/';
 const Number = 150;
