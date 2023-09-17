@@ -1,5 +1,5 @@
 import { LinearGradient } from 'expo-linear-gradient';
-import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView, StyleSheet } from 'react-native';
 
 import Form from '../components/AuthPage/Form';
 import { Theme } from '../constants/Theme';
@@ -8,9 +8,12 @@ const theme = Theme();
 export default function AuthPage() {
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.buttonSection}>
+      <LinearGradient
+        colors={[theme.palette.tertiary, theme.palette.primary]}
+        style={styles.buttonSection}
+      >
         <Form />
-      </View>
+      </LinearGradient>
     </SafeAreaView>
   );
 }
@@ -23,7 +26,6 @@ const styles = StyleSheet.create({
   },
   buttonSection: {
     flex: 1,
-    backgroundColor: theme.palette.primary,
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: '5%',

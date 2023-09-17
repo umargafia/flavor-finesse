@@ -101,11 +101,12 @@ const Settings = () => {
               />
 
               <Divider />
-              {/* <SettingItem
-              text="Delete Account"
-              color={theme.palette.tertiary}
-              icon="trash-outline"
-            /> */}
+              <SettingItem
+                text="Delete Account"
+                color={theme.palette.tertiary}
+                icon="trash-outline"
+                onPress={() => navigation.navigate('deleteAccountPage')}
+              />
             </MyCard>
           )}
         </LinearGradient>
@@ -152,6 +153,7 @@ const styles = StyleSheet.create({
     color: theme.palette.white,
     letterSpacing: 3,
     marginTop: 2,
+    textAlign: 'center',
   },
   email: {
     color: theme.palette.white,

@@ -16,6 +16,7 @@ import ProfilePage from './src/pages/Settings/Profile';
 import AboutScreen from './src/pages/Settings/AboutPage';
 import PrivacyPolicy from './src/pages/Privacypolicy';
 import TermsAndCondition from './src/pages/TermsAndCondition';
+import DeleteAccount from './src/pages/Settings/DeleteAccountPage';
 
 const Stack = createNativeStackNavigator();
 SplashScreen.preventAutoHideAsync();
@@ -102,6 +103,13 @@ export default function Home() {
             component={TermsAndCondition}
             options={{
               title: 'Terms And Condition',
+            }}
+          />
+          <Stack.Screen
+            name="deleteAccountPage"
+            component={DeleteAccount}
+            options={{
+              title: 'Delete account',
             }}
           />
         </Stack.Navigator>

@@ -1,10 +1,4 @@
-import {
-  FlatList,
-  StyleSheet,
-  Text,
-  View,
-  VirtualizedList,
-} from 'react-native';
+import { StyleSheet, Text, View, VirtualizedList } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
@@ -96,7 +90,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 30,
-    fontFamily: theme.font.sansRegular,
+    fontFamily: theme.font.DancingScriptMedium,
   },
   scrollView: {
     alignItems: 'center',

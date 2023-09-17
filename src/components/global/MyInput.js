@@ -66,7 +66,6 @@ const styles = StyleSheet.create({
     width: '100%',
     padding: 10,
     paddingLeft: 40,
-    backgroundColor: theme.palette.primary,
     margin: 10,
     fontSize: 20,
     borderRadius: 10,
