@@ -7,7 +7,29 @@ import MyGrid from '../../components/global/MyGrid';
 import { Theme } from '../../constants/Theme';
 
 const adUnitId = 'ca-app-pub-1591256891479203/9345529718';
-const adKeywords = ['food', 'recipes'];
+const adKeywords = [
+  'Cooking Recipes',
+  'Recipe Ideas',
+  'Culinary Delights',
+  'Gourmet Dishes',
+  'Kitchen Inspiration',
+  'Flavorful Creations',
+  "Chef's Specials",
+  'Homemade Meals',
+  'Culinary Adventures',
+  'Gastronomic Delights',
+  'Cooking Tutorials',
+  'Recipe Finder',
+  'Quick & Easy Recipes',
+  'Healthy Cooking',
+  'Family-Friendly Meals',
+  'Taste Sensations',
+  'Meal Planning Made Easy',
+  'Fresh Ingredients',
+  'Recipe Collections',
+  'International Flavors',
+];
+
 const theme = Theme();
 
 const useInterstitial = () => {
