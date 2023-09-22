@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, Linking } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Divider } from '@rneui/base';
 import { Image } from 'react-native';
@@ -24,6 +24,14 @@ const Settings = () => {
     AsyncStorage.clear();
     dispatch(logout());
     navigation.navigate('welcomeScreen');
+  }
+
+  function hangleNavigateToPlayStore() {
+    const playStoreUrl =
+      'https://play.google.com/store/apps/details?id=com.flavorfinnese.app';
+    Linking.openURL(playStoreUrl).catch((err) =>
+      console.error('An error occurred', err)
+    );
   }
 
   return (
@@ -69,6 +77,7 @@ const Settings = () => {
             <SettingItem
               text="Have a minute? Help us improve by rating our app!"
               icon="star-half-outline"
+              onPress={hangleNavigateToPlayStore}
             />
             <Divider />
             <SettingItem
